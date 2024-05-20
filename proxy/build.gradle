@@ -1,0 +1,94 @@
+import java.nio.file.Paths
+
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+    //id 'org.hidetake.ssh' version '2.11.2'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':shared')
+    implementation project(':m-linker')
+
+    implementation "dev.t4yrn.jupiter:jupiter:1.0-SNAPSHOT"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10"
+    implementation "org.apache.commons:commons-pool2:2.6.0"
+    implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation "org.mongodb:mongo-java-driver:3.12.10"
+
+    compileOnly fileTree(dir: '.lib', include: '*.jar')
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset = "UTF-8"
+    filesMatching("plugin.yml") {
+        expand props
+    }
+}
+
+shadowJar {
+    archiveClassifier.set(null)
+
+    exclude "**/*.kotlin_metadata"
+    exclude "**/*.kotlin_module"
+    exclude "**/*.kotlin_builtins"
+    exclude "META-INF/**"
+
+    project.configurations.implementation.canBeResolved = true
+    configurations = [project.configurations.implementation]
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            from components.java
+
+            afterEvaluate {
+                artifact(shadowJar) {
+                    classifier = 'all'
+                }
+            }
+        }
+    }
+}
+
+/*
+ssh.settings {
+    dryRun = project.hasProperty('dryRun')
+}
+
+remotes {
+    server {
+        host = '34.151.231.154'
+        user = 'root'
+        password = 'hZ}2P5yA7%Ii8"Tr'
+    }
+}
+*/
+
+def directory = Paths.get(System.getProperty("user.home"), "Desktop", "StarlightLLC", ".exported").toString()
+def pluginName = "rCore"
+
+tasks.withType(Jar).configureEach {
+    destinationDirectory = file(directory)
+    archiveFileName = "$pluginName-${project.name}-${project.version}.jar"
+    def finalFileName = "$pluginName-${project.name}-${project.version}.jar"
+    /*
+    doLast {
+        ssh.run {
+            session(remotes.server) {
+                put from: "$directory\\$finalFileName", into: '/home/.exported/'
+            }
+        }
+    }
+    */
+}

@@ -1,0 +1,4 @@
+main: com.starlight.core.proxy.Core
+version: $version
+author: T4yrn
+name: Core

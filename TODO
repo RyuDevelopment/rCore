@@ -1,0 +1,79 @@
+
+--- TODO (TO DO) ---
+
+SessionsManager (90%)
+Create a session on player join to see if the player is connected // Done
+and show the info player like: Playtime, etc // Done
+add menu (/sessions {target}) (90%) // fix lore de las cosas xd xd xd xd xd xd xd xd xd xd xd xd xd
+addded playtime command (/playtime {target}) // Done
+fixear los tiempos de las sessions xdxdxddxdxdd
+
+ClansSystem [OPTIONAL]
+KillStreak System (per server) [OPTIONAL]
+
+HCAER EL DEV API EN GITHUB
+
+CoinShop
+Reboot System (Auto Reboot)
+Disguise
+Discord Sync
+2FA
+Maintenance System
+Helpop
+Alts
+Chat System
+Hub Balancing (requires BungeeCord)
+Custom MOTD (requires BungeeCord)
+
+profile commands
+Profile Menu - Total Playtime (Addition of all sessions)
+
+añadir mas info en el rank info command que me faltan booleans y mas data
+
+TODO: 
+Añadir menu para poder dar una razon por defecto predefinida a un grant
+Añadir menu para poder dar por defecto un tiempo predefinido a un grant
+
+Manage Server:
+Sistema para cambiar el color del servidor
+Sistema para poner discord, teamspeak, website y cosas así
+Sistema para reiniciar servidor, cambiar cosas de el servidor y así
+
+--- Server Management --- (60%)
+esta bug ahora no crea nada
+Add selectable Spigot Run startup // Done
+Add Plugin selector runnable // Done
+Add importable custom configs // Done
+Add premade import to create a server
+Add plugin download from link and put in folder plugins of server to create // Done
+Add registration server in bungee config and reload config
+Add custom servers presets // Done
+Add private servers presets
+Add general servers presets
+Quizas falte mejorar alguna q otra cosa xd...
+eliminar el server desde serever manager uwu y porfavcor que pida confirmacion
+
+Discord WebHook Module
+GRANTS (aplied, removed)
+CODES // DONE
+RANKS (create, deleted, modified)
+PUNISHMENTS (punish, unpunish, blacklist, unblacklist)
+TAGS (create, deleted, modified)
+SERVERS // DONE
+REPORTS //
+
+--- FINISHED ---
+Prefix System // Done
+Loader Module System // Done
+ScoreboardAPI // Done
+ProfileManager // Done || RECODED
+RankManager // Done || RECODED
+CodesManager // Done || RECODED
+GrantsManager // Done || RECODED
+PunishmentManager // Done || RECODED
+NetworkManager // Done || RECODED
+FriendSystem // Done
+ReportsSystem // Done
+Essential commands // Done
+arreglar lore de los punishment en el /history tienen el lore viejo // Done
+Tips // Done

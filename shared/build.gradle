@@ -1,0 +1,61 @@
+import java.nio.file.Paths
+
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+
+}
+
+dependencies {
+    implementation project(':m-linker')
+
+    implementation 'org.apache.commons:commons-pool2:2.6.0'
+    implementation 'dev.t4yrn.jupiter:jupiter:1.0-SNAPSHOT'
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'redis.clients:jedis:3.5.1'
+    implementation 'org.mongodb:mongo-java-driver:3.12.10'
+    compileOnly 'com.starlight:nexus:1.1-SNAPSHOT'
+
+}
+
+shadowJar {
+    archiveClassifier.set(null)
+
+    exclude "**/*.kotlin_metadata"
+    exclude "**/*.kotlin_module"
+    exclude "**/*.kotlin_builtins"
+    exclude "META-INF/**"
+
+    project.configurations.implementation.canBeResolved = true
+    configurations = [project.configurations.implementation]
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            from components.java
+
+            afterEvaluate {
+                artifact(shadowJar) {
+                    classifier = 'all'
+                }
+            }
+        }
+    }
+}
+
+//C:\Users\le4ndev\Testing\staging\plugins
+def directory = Paths.get(System.getProperty("user.home"), "Desktop", "StarlightLLC", ".exported").toString()
+def pluginName = "rCore"
+
+tasks.withType(Jar).configureEach {
+    destinationDirectory = file(directory)
+    archiveFileName = "$pluginName-${project.name}-${project.version}.jar"
+}

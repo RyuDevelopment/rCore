@@ -1,0 +1,50 @@
+import java.nio.file.Paths
+
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly fileTree(dir: '.lib', include: '*.jar')
+}
+
+shadowJar {
+    archiveClassifier.set(null)
+
+    include("com/starlight/core/linker/data/**")
+    include("com/starlight/core/linker/main/**")
+
+    project.configurations.implementation.canBeResolved = true
+    configurations = [project.configurations.implementation]
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            from components.java
+
+            afterEvaluate {
+                artifact(shadowJar) {
+                    classifier = 'all'
+                }
+            }
+        }
+    }
+}
+
+
+def directory = Paths.get(System.getProperty("user.home"), "Desktop", "StarlightLLC", ".exported").toString()
+def pluginName = "rCore"
+
+tasks.withType(Jar).configureEach {
+    destinationDirectory = file(directory)
+    archiveFileName = "$pluginName-${project.name}-${project.version}.jar"
+}

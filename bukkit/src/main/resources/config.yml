@@ -1,0 +1,43 @@
+#################################
+#          ______               #
+#    _____/ ____/___  ________  #
+#   / ___/ /   / __ \/ ___/ _ \ #
+#  / /  / /___/ /_/ / /  /  __/ #
+# /_/   \____/\____/_/   \___/  #
+#                               #
+#################################
+
+server-info:
+  name: "Staging Server"
+  group: "Staging Servers"
+
+chatFormat:
+  text: "{tag} {rank} {name}: {message}"
+  enabled: true
+
+discord_webhook:
+  status: true
+  url:
+    grants: ""
+    punishments: ""
+    ranks: ""
+    codes: "https://discord.com/api/webhooks/1239286921126219816/RpSQ9Ou7_aXpVpFfYC_ynkSwxTp0LWzMBafrHjEGRXXA6vMX_1vssd-QIIeum9hy1Lnn"
+    tags: ""
+    servers: "https://discord.com/api/webhooks/1239300857791643728/paNYgZ1k5NxzO4GpHNwq6e94a434GIFpg2xZ99H19oLKaflnl_COwhdYFD5TyR5d7_Ot"
+    reports: ""
+
+coinshop_menus:
+  - "general"
+  - "extra"
+
+tips:
+  settings:
+    status: true
+    interval: 3 # Intervalo en minutos
+    random: false
+  '1':
+    - "Tip: Utiliza comandos /help para obtener ayuda en el juego."
+  '2':
+    - "Tip: Mantén limpio tu inventario organizándolo con /invsee."
+  '3':
+    - "Tip: ¡No olvides votar por el servidor para obtener recompensas!"

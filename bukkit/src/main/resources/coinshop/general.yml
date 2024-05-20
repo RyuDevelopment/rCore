@@ -1,0 +1,133 @@
+# Default Actions Values
+#
+# {OPEN_RANK_SHOP}
+# {OPEN_TAGS_SHOP}
+# {OPEN_CUSTOM_NICK_SHOP}
+# {OPEN_CHAT_COLOR_SHOP}
+# {OPEN_EXTRA_MENU}
+# {OPEN_DISGUISE_SHOP}
+# {OPEN_COSMETIC_SHOP}
+# {OPEN_COUPONS_MENU}
+# {OPEN_CART_MENU}
+#
+# You don't need to edit this here
+# There's a IN-GAME editable menu for the shop :D
+
+MENU:
+  SIZE: 45
+  TITLE: "&6Shop"
+
+# REMEMBER TO ADD THE SLOTS
+# THE QUANTITY OF SLOTS WILL BE REPEATED TO CREATE IN DIFFERENTS SLOTS
+ITEMS-REPEATED:
+  GLASS:
+    ICON: "STAINED_GLASS_PANE"
+    DATA: 7
+    DISPLAY: "&7"
+    SLOT:
+      - 0
+      - 1
+      - 7
+      - 8
+      - 9
+      - 17
+      - 27
+      - 35
+      - 36
+      - 37
+      - 43
+      - 44
+    LORE:
+      - "{CLEAR_LORE}"
+    CLICK_TYPE: "LEFT"
+    ACTION: "{NONE}"
+
+ITEMS:
+  RANKS:
+    ICON: "NETHER_STAR"
+    DATA: 0
+    DISPLAY: "&6Ranks"
+    SLOT: 12
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{OPEN_RANK_SHOP}"
+  TAGS:
+    ICON: "NAME_TAG"
+    DATA: 0
+    DISPLAY: "&6Tags"
+    SLOT: 14
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{OPEN_TAGS_SHOP}"
+  CUSTOM_NICK:
+    ICON: "BOOK_AND_QUILL"
+    DATA: 0
+    DISPLAY: "&6Custom Nick"
+    SLOT: 20
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{OPEN_CUSTOM_NICK_SHOP}"
+  CHAT_COLOR:
+    ICON: "WOOL"
+    DATA: 3
+    DISPLAY: "&6Chat Color"
+    SLOT: 21
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{OPEN_CHAT_COLOR_SHOP}"
+  EXTRA:
+    ICON: "HOPPER"
+    DATA: 0
+    DISPLAY: "&6Extra"
+    SLOT: 22
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{OPEN_EXTRA_MENU}"
+  DISGUISE_TOKENS:
+    ICON: "LEASH"
+    DATA: 0
+    DISPLAY: "&6Disguise Tokens"
+    SLOT: 23
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{OPEN_DISGUISE_SHOP}"
+  COSMETICS:
+    ICON: "BLAZE_POWDER"
+    DATA: 0
+    DISPLAY: "&6Cosmetics"
+    SLOT: 24
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{OPEN_COSMETIC_SHOP}"
+  HOW2USE:
+    ICON: "ANVIL"
+    DATA: 0
+    DISPLAY: "&6How to use?"
+    SLOT: 18
+    LORE:
+      - ""
+      - "Testing"
+      - ""
+    CLICK_TYPE: "LEFT"
+    ACTION: "{NONE}"

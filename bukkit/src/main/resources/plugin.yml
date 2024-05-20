@@ -1,0 +1,5 @@
+main: dev.ryu.core.bukkit.Core
+version: $version
+author: "T4yrn"
+authors: ["T4yrn", "Ryu Development"]
+name: rCore
