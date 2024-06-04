@@ -1,0 +1,33 @@
+# You don't need to edit this here
+# There's a IN-GAME editable menu for the shop :D
+
+MENU:
+  SIZE: 45
+  TITLE: "&6Extra"
+
+# REMEMBER TO ADD THE SLOTS
+# THE QUANTITY OF SLOTS WILL BE REPEATED TO CREATE IN DIFFERENTS SLOTS
+ITEMS-REPEATED:
+  GLASS:
+    ICON: "STAINED_GLASS_PANE"
+    DATA: 7
+    DISPLAY: "&7"
+    SLOT:
+      - 0
+      - 1
+      - 7
+      - 8
+      - 9
+      - 17
+      - 27
+      - 35
+      - 36
+      - 37
+      - 43
+      - 44
+    LORE:
+      - "{CLEAR_LORE}"
+    CLICK_TYPE: "LEFT"
+    ACTION: "{NONE}"
+
+ITEMS: {}

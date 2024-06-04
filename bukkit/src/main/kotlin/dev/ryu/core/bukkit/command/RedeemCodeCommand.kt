@@ -46,7 +46,7 @@ object RedeemCodeCommand {
             return
         }
 
-        val rankToGive = dev.ryu.core.shared.CoreAPI.rankManager.findById(code.rank)!!
+        val rankToGive = dev.ryu.core.shared.Shared.rankManager.findById(code.rank)!!
         val rankDuration = Duration(code.rankDuration)
 
         code.redeemed = true
@@ -74,7 +74,7 @@ object RedeemCodeCommand {
             CodesLogWebhook.onCodeClaimed(data)
         }
 
-        dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(Code.CODE_REDEEMED, data))
+        dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(Code.CODE_REDEEMED, data))
 
     }
 

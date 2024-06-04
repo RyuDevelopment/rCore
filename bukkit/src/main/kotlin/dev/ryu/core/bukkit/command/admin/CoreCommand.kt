@@ -14,13 +14,13 @@ object CoreCommand {
     fun reloadTags(
         sender: CommandSender
     ) {
-        dev.ryu.core.shared.CoreAPI.moduleManager.reloadModule(dev.ryu.core.shared.CoreAPI.moduleManager.findById(8))
+        dev.ryu.core.shared.Shared.moduleManager.reloadModule(dev.ryu.core.shared.Shared.moduleManager.findById(8))
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
         }
 
-        sender.sendMessage(Lang.CORE_PREFIX.value + "${ChatColor.GREEN}Successfully reload ${dev.ryu.core.shared.CoreAPI.moduleManager.findById(8).moduleName()}!")
+        sender.sendMessage(Lang.CORE_PREFIX.value + "${ChatColor.GREEN}Successfully reload ${dev.ryu.core.shared.Shared.moduleManager.findById(8).moduleName()}!")
     }
 
     @Command(names = ["creload ranks"], description = "Reload rank system", permission = "core.manage")
@@ -28,13 +28,13 @@ object CoreCommand {
     fun reloadRanks(
         sender: CommandSender
     ) {
-        dev.ryu.core.shared.CoreAPI.moduleManager.reloadModule(dev.ryu.core.shared.CoreAPI.moduleManager.findById(2))
+        dev.ryu.core.shared.Shared.moduleManager.reloadModule(dev.ryu.core.shared.Shared.moduleManager.findById(2))
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
         }
 
-        sender.sendMessage(Lang.CORE_PREFIX.value + "${ChatColor.GREEN}Successfully reload ${dev.ryu.core.shared.CoreAPI.moduleManager.findById(2).moduleName()}!")
+        sender.sendMessage(Lang.CORE_PREFIX.value + "${ChatColor.GREEN}Successfully reload ${dev.ryu.core.shared.Shared.moduleManager.findById(2).moduleName()}!")
     }
 
     //hacer los dumps de las base de datos

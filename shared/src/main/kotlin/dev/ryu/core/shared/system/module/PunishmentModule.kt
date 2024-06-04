@@ -1,7 +1,6 @@
 package dev.ryu.core.shared.system.module
 
 import dev.ryu.core.linker.data.IModule
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Punishment
 import dev.ryu.core.shared.system.repository.PunishmentRepository
 import dev.t4yrn.jupiter.Jupiter
@@ -65,7 +64,7 @@ object PunishmentModule : IModule {
 
         if (toReturn) {
 
-            val jsonObject = dev.ryu.core.shared.CoreAPI.getGson().toJsonTree(punishment).asJsonObject
+            val jsonObject = dev.ryu.core.shared.Shared.getGson().toJsonTree(punishment).asJsonObject
 
             jsonObject.addProperty("victimDisplay",victimDisplay)
             jsonObject.addProperty("senderDisplay",senderDisplay)
@@ -86,7 +85,7 @@ object PunishmentModule : IModule {
 
         if (toReturn) {
 
-            val jsonObject = dev.ryu.core.shared.CoreAPI.getGson().toJsonTree(punishment).asJsonObject
+            val jsonObject = dev.ryu.core.shared.Shared.getGson().toJsonTree(punishment).asJsonObject
 
             jsonObject.addProperty("victimDisplay",victimDisplay)
             jsonObject.addProperty("senderDisplay",senderDisplay)

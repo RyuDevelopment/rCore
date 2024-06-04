@@ -33,11 +33,15 @@ coinshop_menus:
 tips:
   settings:
     status: true
-    interval: 3 # Intervalo en minutos
+    interval: 3 # Interval in minutes
     random: false
-  '1':
-    - "Tip: Utiliza comandos /help para obtener ayuda en el juego."
-  '2':
-    - "Tip: Mantén limpio tu inventario organizándolo con /invsee."
-  '3':
-    - "Tip: ¡No olvides votar por el servidor para obtener recompensas!"
+    sound: "NOTE_PLING"
+    volume: 2.5f
+    pitch: 0.15f
+  messages:
+    '1':
+      - "Tip: This is a test of 1 tip"
+    '2':
+      - "Tip: This is a test of 2 tip"
+    '3':
+      - "Tip: This is a test of 3 tip"

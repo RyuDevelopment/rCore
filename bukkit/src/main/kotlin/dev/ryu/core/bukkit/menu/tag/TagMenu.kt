@@ -2,7 +2,6 @@ package dev.ryu.core.bukkit.menu.tag
 
 import com.google.common.collect.Lists
 import com.google.common.collect.Maps
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Tag
 import dev.ryu.core.shared.system.extra.tag.TagType
 import com.starlight.nexus.menu.PaginatedMenu
@@ -47,13 +46,13 @@ class TagMenu : PaginatedMenu() {
         val toReturn : MutableMap<Int, Button> = Maps.newHashMap()
 
         val tags = getAllTags()
-        val profile = dev.ryu.core.shared.CoreAPI.profileManager.findById(player.uniqueId)!!
+        val profile = dev.ryu.core.shared.Shared.profileManager.findById(player.uniqueId)!!
 
         var symbolsIndex = 0
         var countriesIndex = 0
         var partnersIndex = 0
 
-        val currentRank = dev.ryu.core.shared.CoreAPI.grantManager.findGrantedRank(player.uniqueId)
+        val currentRank = dev.ryu.core.shared.Shared.grantManager.findGrantedRank(player.uniqueId)
         
         for (i in tags.indices) {
             val currentTag = tags[i]
@@ -84,7 +83,7 @@ class TagMenu : PaginatedMenu() {
                                     player.closeInventory()
 
                                     profile.tag = currentTag.name
-                                    dev.ryu.core.shared.CoreAPI.profileManager.repository.update(profile)
+                                    dev.ryu.core.shared.Shared.profileManager.repository.update(profile)
 
                                     player.sendMessage("${ChatColor.GREEN}Successfully applied ${ChatColor.translateAlternateColorCodes('&', "${currentTag.display}")}${ChatColor.GREEN}'s tag.")
 
@@ -120,7 +119,7 @@ class TagMenu : PaginatedMenu() {
                                     player.closeInventory()
 
                                     profile.tag = currentTag.name
-                                    dev.ryu.core.shared.CoreAPI.profileManager.repository.update(profile)
+                                    dev.ryu.core.shared.Shared.profileManager.repository.update(profile)
 
                                     player.sendMessage("${ChatColor.GREEN}Successfully applied ${ChatColor.translateAlternateColorCodes('&', "${currentTag.display}")}${ChatColor.GREEN}'s tag.")
 
@@ -156,7 +155,7 @@ class TagMenu : PaginatedMenu() {
                                     player.closeInventory()
 
                                     profile.tag = currentTag.name
-                                    dev.ryu.core.shared.CoreAPI.profileManager.repository.update(profile)
+                                    dev.ryu.core.shared.Shared.profileManager.repository.update(profile)
 
                                     player.sendMessage("${ChatColor.GREEN}Successfully applied ${ChatColor.translateAlternateColorCodes('&', "${currentTag.display}")}${ChatColor.GREEN}'s tag.")
 
@@ -204,10 +203,10 @@ class TagMenu : PaginatedMenu() {
             override fun clicked(player: Player, slot: Int, clickType: ClickType) {
                 player.closeInventory()
 
-                val profile = dev.ryu.core.shared.CoreAPI.profileManager.findById(player.uniqueId)!!
+                val profile = dev.ryu.core.shared.Shared.profileManager.findById(player.uniqueId)!!
 
                 profile.tag = null
-                dev.ryu.core.shared.CoreAPI.profileManager.repository.update(profile)
+                dev.ryu.core.shared.Shared.profileManager.repository.update(profile)
 
                 player.sendMessage("${ChatColor.GREEN}Successfully reset your tag.")
 
@@ -259,7 +258,7 @@ class TagMenu : PaginatedMenu() {
     }
 
     private fun getAllTags(): List<Tag> {
-        val allTags = ArrayList(dev.ryu.core.shared.CoreAPI.tagManager.tags.values)
+        val allTags = ArrayList(dev.ryu.core.shared.Shared.tagManager.tags.values)
         val tags: MutableList<Tag> = Lists.newArrayList()
         tags.addAll(allTags)
         tags.sortWith { o1, o2 -> o2.priority - o1.priority }

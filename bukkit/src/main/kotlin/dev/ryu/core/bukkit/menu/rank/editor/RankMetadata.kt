@@ -1,13 +1,11 @@
 package dev.ryu.core.bukkit.menu.rank.editor
 
-import dev.ryu.core.bukkit.Core
 import dev.ryu.core.bukkit.menu.rank.RankEditor
 import dev.ryu.core.bukkit.prompt.rank.RankModifyPrompt
 import com.starlight.nexus.menu.button.Button
 import com.starlight.nexus.menu.Menu
 import com.starlight.nexus.menu.button.impl.GlassButton
 import com.starlight.nexus.menu.button.impl.MenuButton
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Rank
 import com.starlight.nexus.util.UnicodeUtil
 import com.starlight.nexus.menu.button.Button.styleAction
@@ -99,7 +97,7 @@ class RankMetadata(private val rank: Rank) : Menu() {
                 )
                 .action(ClickType.LEFT) {
                     this.rank.staff = !this.rank.staff
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
 
             toReturn[23] = MenuButton()
@@ -115,7 +113,7 @@ class RankMetadata(private val rank: Rank) : Menu() {
                 )
                 .action(ClickType.LEFT) {
                     this.rank.media = !this.rank.media
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
 
             toReturn[24] = MenuButton()
@@ -131,7 +129,7 @@ class RankMetadata(private val rank: Rank) : Menu() {
                 )
                 .action(ClickType.LEFT) {
                     this.rank.hidden = !this.rank.hidden
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
 
             toReturn[31] = MenuButton()
@@ -147,7 +145,7 @@ class RankMetadata(private val rank: Rank) : Menu() {
                 )
                 .action(ClickType.LEFT) {
                     this.rank.default = !this.rank.default
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
 
             toReturn[32] = MenuButton()
@@ -163,7 +161,7 @@ class RankMetadata(private val rank: Rank) : Menu() {
                 )
                 .action(ClickType.LEFT) {
                     this.rank.grantable = !this.rank.grantable
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
 
             toReturn[33] = MenuButton()
@@ -179,7 +177,7 @@ class RankMetadata(private val rank: Rank) : Menu() {
                 )
                 .action(ClickType.LEFT) {
                     this.rank.donator = !this.rank.donator
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
 
             toReturn[4] = MenuButton()

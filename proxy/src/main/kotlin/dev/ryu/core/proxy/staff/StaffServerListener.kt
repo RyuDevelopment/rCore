@@ -2,7 +2,6 @@ package dev.ryu.core.proxy.staff
 
 import com.google.gson.JsonObject
 import dev.ryu.core.proxy.Core
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.module.GrantModule
 import dev.ryu.core.shared.system.module.NetworkModule
 import dev.t4yrn.jupiter.Jupiter
@@ -52,7 +51,7 @@ class StaffServerListener(private val instance: Core) : Listener {
                 jsonObject.addProperty("rankColor", GrantModule.findBestRank(event.player.uniqueId).color)
             }
 
-            dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(packet,jsonObject))
+            dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(packet,jsonObject))
         }
 
     }
@@ -84,7 +83,7 @@ class StaffServerListener(private val instance: Core) : Listener {
                 jsonObject.addProperty("displayName",event.player.name)
             }
 
-            dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(NetworkModule.NETWORK_LEAVE_PACKET,jsonObject))
+            dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(NetworkModule.NETWORK_LEAVE_PACKET,jsonObject))
         }
 
     }

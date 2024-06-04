@@ -32,7 +32,7 @@ class RankCreatePrompt(val player: Player) : StringPrompt() {
         }
 
         try {
-            var rank = dev.ryu.core.shared.CoreAPI.rankManager.findById(input)
+            var rank = dev.ryu.core.shared.Shared.rankManager.findById(input)
 
             if (rank == null) {
                 rank = Rank(input)
@@ -40,8 +40,8 @@ class RankCreatePrompt(val player: Player) : StringPrompt() {
                 rank.display = "&7${rank.id}"
                 rank.createdAt = System.currentTimeMillis()
 
-                dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
-                dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(Rank.RANK_CREATED, rank))
+                dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
+                dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(Rank.RANK_CREATED, rank))
 
                 RankCommand().openMenu(player)
             } else {

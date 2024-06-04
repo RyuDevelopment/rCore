@@ -7,7 +7,6 @@ import dev.ryu.core.proxy.proxy.command.SendCommand
 import dev.ryu.core.proxy.proxy.listener.HubListener
 import dev.ryu.core.proxy.proxy.packet.ProxyPacketListener
 import dev.ryu.core.proxy.staff.StaffServerListener
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Proxy
 import dev.ryu.core.shared.system.extra.server.Status
 import dev.ryu.core.shared.system.module.NetworkModule
@@ -49,7 +48,7 @@ class ProxyHandler(private val instance: Core) {
             this.proxyGroup = this.instance.config.getString("group","unknown")
         }
 
-        dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().addListener(ProxyPacketListener(this.instance))
+        dev.ryu.core.shared.Shared.backendManager.getJupiter().addListener(ProxyPacketListener(this.instance))
 
         // All these commands are so everything syncs across all proxies.
         this.instance.proxy.pluginManager.registerCommand(this.instance, SendCommand(this.instance))

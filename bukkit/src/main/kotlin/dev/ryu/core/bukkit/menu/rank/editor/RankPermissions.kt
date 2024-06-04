@@ -5,13 +5,11 @@ import com.starlight.nexus.menu.button.Button
 import com.starlight.nexus.menu.button.impl.GlassButton
 import com.starlight.nexus.menu.button.impl.MenuButton
 import com.starlight.nexus.menu.PaginatedMenu
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Rank
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.ClickType
-import org.bukkit.inventory.InventoryView
 
 class RankPermissions(private val rank: Rank) : PaginatedMenu() {
 
@@ -48,7 +46,7 @@ class RankPermissions(private val rank: Rank) : PaginatedMenu() {
 
                     override fun clicked(player: Player, slot: Int, clickType: ClickType) {
                         this@RankPermissions.rank.permissions.remove(permission)
-                        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                     }
                 }
             }

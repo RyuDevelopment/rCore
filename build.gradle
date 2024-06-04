@@ -1,4 +1,28 @@
 allprojects {
-    group = "com.starlight"
-    version = "1.0-SNAPSHOT"
+    group = "dev.ryu.core"
+    version = "1.5-SNAPSHOT"
+}
+
+tasks.register('Core Bukkit') {
+    group = 'Core'
+
+    dependsOn ':bukkit:publishToMavenLocal'
+}
+
+tasks.register('Core Proxy') {
+    group = 'Core'
+
+    dependsOn ':proxy:publishToMavenLocal'
+}
+
+tasks.register('Core Shared') {
+    group = 'Core'
+
+    dependsOn ':shared:publishToMavenLocal'
+}
+
+tasks.register('Core Linker') {
+    group = 'Core'
+
+    dependsOn ':m-linker:publishToMavenLocal'
 }

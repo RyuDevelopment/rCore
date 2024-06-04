@@ -2,7 +2,7 @@ package dev.ryu.core.bukkit.prompt.friend
 
 import dev.ryu.core.bukkit.menu.friend.FriendsMenu
 import dev.ryu.core.bukkit.system.lang.Lang
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import mkremins.fanciful.FancyMessage
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -27,7 +27,7 @@ class FriendAddPrompt(val sender: Player) : StringPrompt() {
         }
 
         try {
-            val target = CoreAPI.profileManager.findByName(input)!!
+            val target = Shared.profileManager.findByName(input)!!
 
             if (input == sender.name) {
                 sender.sendMessage("${ChatColor.RED}You can't send a friend request to yourself")
@@ -47,7 +47,7 @@ class FriendAddPrompt(val sender: Player) : StringPrompt() {
                         message.send(Bukkit.getPlayer(target.id))
                     }
 
-                    CoreAPI.profileManager.repository.update(target)
+                    Shared.profileManager.repository.update(target)
                 } else {
                     sender.sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${target.name} ${ChatColor.RED}already has a pending friend request from you.")
                 }

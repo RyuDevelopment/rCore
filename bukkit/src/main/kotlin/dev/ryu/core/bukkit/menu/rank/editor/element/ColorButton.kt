@@ -1,7 +1,6 @@
 package dev.ryu.core.bukkit.menu.rank.editor.element
 
 import dev.ryu.core.bukkit.menu.rank.RankEditor
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Rank
 import com.starlight.nexus.util.UnicodeUtil
 import com.starlight.nexus.menu.button.Button
@@ -10,7 +9,6 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.ClickType
-import org.bukkit.inventory.InventoryView
 
 class ColorButton(private val rank: Rank, private val color: ChatColor) : Button() {
 
@@ -39,7 +37,7 @@ class ColorButton(private val rank: Rank, private val color: ChatColor) : Button
         player.closeInventory()
 
         rank.color = color.name
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         RankEditor(rank).openMenu(player)
     }

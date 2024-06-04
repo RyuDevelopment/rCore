@@ -17,7 +17,7 @@ import dev.ryu.core.bukkit.prompt.friend.FriendAddPrompt
 import dev.ryu.core.bukkit.system.lang.Lang
 import dev.ryu.core.bukkit.util.Constants
 import dev.ryu.core.bukkit.util.protocol
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.module.GrantModule
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -41,12 +41,12 @@ class FriendsMenu: PaginatedMenu() {
 
     override fun getAllPagesButtons(p0: Player): MutableMap<Int, Button> {
         return mutableMapOf<Int, Button>().also { toReturn ->
-            val profile = CoreAPI.profileManager.findById(p0.uniqueId)!!
+            val profile = Shared.profileManager.findById(p0.uniqueId)!!
 
             var index = 0
             profile.friends.forEach { friend ->
-                val target = CoreAPI.profileManager.findById(friend)!!
-                val targetRank = CoreAPI.grantManager.findBestRank(GrantModule.repository.findAllByPlayer(target.id))
+                val target = Shared.profileManager.findById(friend)!!
+                val targetRank = Shared.grantManager.findBestRank(GrantModule.repository.findAllByPlayer(target.id))
 
                 if (p0.protocol <= 20) {
                     toReturn[index] = MenuButton()
@@ -89,8 +89,8 @@ class FriendsMenu: PaginatedMenu() {
                                                     Bukkit.getPlayer(target.id).sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${p0.name} ${ChatColor.RED}has removed you from their friends list.")
                                                 }
 
-                                                CoreAPI.profileManager.repository.update(profile)
-                                                CoreAPI.profileManager.repository.update(target)
+                                                Shared.profileManager.repository.update(profile)
+                                                Shared.profileManager.repository.update(target)
                                             } else {
                                                 p0.sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${target.name}${ChatColor.YELLOW} is not in your friends list.");
                                             }
@@ -144,8 +144,8 @@ class FriendsMenu: PaginatedMenu() {
                                                     Bukkit.getPlayer(target.id).sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${p0.name} ${ChatColor.RED}has removed you from their friends list.")
                                                 }
 
-                                                CoreAPI.profileManager.repository.update(profile)
-                                                CoreAPI.profileManager.repository.update(target)
+                                                Shared.profileManager.repository.update(profile)
+                                                Shared.profileManager.repository.update(target)
                                             } else {
                                                 p0.sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${target.name}${ChatColor.YELLOW} is not in your friends list.");
                                             }
@@ -206,7 +206,7 @@ class FriendsMenu: PaginatedMenu() {
                     }
             }
 
-            val profile = CoreAPI.profileManager.findById(player.uniqueId)!!
+            val profile = Shared.profileManager.findById(player.uniqueId)!!
             if (profile.requests.size >= 1) {
                 toReturn[40] = MenuButton()
                     .name("${ChatColor.LIGHT_PURPLE}Friend Requests")

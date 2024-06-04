@@ -1,9 +1,7 @@
 package dev.ryu.core.bukkit.menu.grant.apply.element
 
-import dev.ryu.core.bukkit.Core
 import dev.ryu.core.bukkit.prompt.grant.GrantReasonPrompt
 import com.starlight.nexus.menu.button.Button
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Profile
 import dev.ryu.core.shared.system.Rank
 import dev.ryu.core.shared.system.module.GrantModule
@@ -50,7 +48,7 @@ class GrantElement(private val rank: Rank, private val target: Profile) : Button
     }
 
     override fun clicked(player: Player, slot: Int, clickType: ClickType) {
-        if (this.rank == dev.ryu.core.shared.CoreAPI.rankManager.defaultRank) {
+        if (this.rank == dev.ryu.core.shared.Shared.rankManager.defaultRank) {
             player.sendMessage("${ChatColor.RED}That rank can't be granted as it is default rank.")
             return
         }

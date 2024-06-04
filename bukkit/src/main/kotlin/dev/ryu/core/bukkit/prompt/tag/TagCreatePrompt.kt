@@ -32,7 +32,7 @@ class TagCreatePrompt(val player: Player) : StringPrompt() {
         }
 
         try {
-            val tag = dev.ryu.core.shared.CoreAPI.tagManager.findByName(input)
+            val tag = dev.ryu.core.shared.Shared.tagManager.findByName(input)
 
             if (tag == null) {
                 val tagToCreate = Tag(input)

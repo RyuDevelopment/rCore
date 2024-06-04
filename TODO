@@ -14,7 +14,6 @@ KillStreak System (per server) [OPTIONAL]
 HCAER EL DEV API EN GITHUB
 
 CoinShop
-Reboot System (Auto Reboot)
 Disguise
 Discord Sync
 2FA
@@ -24,6 +23,7 @@ Alts
 Chat System
 Hub Balancing (requires BungeeCord)
 Custom MOTD (requires BungeeCord)
+Añadir al reboot sistem una configuracion de hacer restart programados cada tantas horas ;)
 
 profile commands
 Profile Menu - Total Playtime (Addition of all sessions)
@@ -75,5 +75,6 @@ NetworkManager // Done || RECODED
 FriendSystem // Done
 ReportsSystem // Done
 Essential commands // Done
+Reboot System //Listo
 arreglar lore de los punishment en el /history tienen el lore viejo // Done
 Tips // Done

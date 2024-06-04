@@ -3,7 +3,6 @@ package dev.ryu.core.proxy.permission
 import dev.ryu.core.proxy.Core
 import dev.ryu.core.proxy.permission.listener.PermissionListener
 import dev.ryu.core.proxy.permission.packet.PermissionPacketListener
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.module.GrantModule
 import dev.ryu.core.shared.system.module.ProfileModule
 import net.md_5.bungee.api.connection.ProxiedPlayer
@@ -17,7 +16,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer
 class PermissionHandler(private val instance: Core) {
 
     init {
-        dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().addListener(PermissionPacketListener(this.instance))
+        dev.ryu.core.shared.Shared.backendManager.getJupiter().addListener(PermissionPacketListener(this.instance))
         this.instance.proxy.pluginManager.registerListener(this.instance, PermissionListener(this.instance))
     }
 

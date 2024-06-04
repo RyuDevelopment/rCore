@@ -8,14 +8,11 @@ import com.starlight.nexus.menu.button.impl.MenuButton
 import com.starlight.nexus.util.Callback
 import com.starlight.nexus.util.Color
 import com.starlight.nexus.util.UnicodeUtil
-import dev.ryu.core.bukkit.menu.friend.FriendsMenu
-import dev.ryu.core.bukkit.system.lang.Lang
 import dev.ryu.core.bukkit.util.protocol
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Profile
 import dev.ryu.core.shared.system.module.GrantModule
 import dev.ryu.core.shared.system.module.ReportModule
-import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -66,7 +63,7 @@ class ReportMenu(
                                 override fun callback(callback: Boolean) {
                                     if (callback) {
                                         player.closeInventory()
-                                        CoreAPI.reportManager.remove(report)
+                                        Shared.reportManager.remove(report)
                                         ReportMenu(target).openMenu(player)
                                     } else {
                                         player.closeInventory()
@@ -82,7 +79,7 @@ class ReportMenu(
                                 override fun callback(callback: Boolean) {
                                     if (callback) {
                                         player.closeInventory()
-                                        CoreAPI.reportManager.remove(report)
+                                        Shared.reportManager.remove(report)
                                         ReportMenu(target).openMenu(player)
                                     } else {
                                         player.closeInventory()
@@ -106,7 +103,7 @@ class ReportMenu(
                 toReturn[getSlot(i, 4)] = GlassButton(7)
             }
 
-            val currentGrant = CoreAPI.grantManager.findBestRank(GrantModule.repository.findAllByPlayer(target.id))
+            val currentGrant = Shared.grantManager.findBestRank(GrantModule.repository.findAllByPlayer(target.id))
 
             if (player.protocol <= 20) {
                 toReturn[4] = MenuButton()

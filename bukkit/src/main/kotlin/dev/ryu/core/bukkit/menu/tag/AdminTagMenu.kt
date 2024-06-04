@@ -2,10 +2,8 @@ package dev.ryu.core.bukkit.menu.tag
 
 import com.google.common.collect.Lists
 import com.google.common.collect.Maps
-import dev.ryu.core.bukkit.Core
 import dev.ryu.core.bukkit.menu.tag.editor.AdminTagEditorMenu
 import dev.ryu.core.bukkit.prompt.tag.TagCreatePrompt
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Tag
 import dev.ryu.core.shared.system.extra.tag.TagType
 import com.starlight.nexus.menu.PaginatedMenu
@@ -297,7 +295,7 @@ class AdminTagMenu  : PaginatedMenu() {
 
 
     private fun getAllTags(): List<Tag> {
-        val allTags = ArrayList(dev.ryu.core.shared.CoreAPI.tagManager.tags.values)
+        val allTags = ArrayList(dev.ryu.core.shared.Shared.tagManager.tags.values)
         val tags: MutableList<Tag> = Lists.newArrayList()
         tags.addAll(allTags)
         tags.sortWith { o1, o2 -> o2.priority - o1.priority }

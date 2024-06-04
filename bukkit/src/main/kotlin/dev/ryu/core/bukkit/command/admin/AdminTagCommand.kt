@@ -37,7 +37,7 @@ object AdminTagCommand {
         @Param(name = "tag") tag: String,
         @Param(name = "type") type: TagType
     ) {
-        if (dev.ryu.core.shared.CoreAPI.tagManager.findByName(tag) != null) {
+        if (dev.ryu.core.shared.Shared.tagManager.findByName(tag) != null) {
             sender.sendMessage(Lang.CORE_PREFIX.value + Lang.TAG_ALREADY_EXISTS_ERROR.value.replace("{tag}", tag))
             return
         }
@@ -53,7 +53,7 @@ object AdminTagCommand {
 
         tagToCreate.save(true)
 
-        dev.ryu.core.shared.CoreAPI.tagManager.tags[tagToCreate.name] = tagToCreate
+        dev.ryu.core.shared.Shared.tagManager.tags[tagToCreate.name] = tagToCreate
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -192,7 +192,7 @@ object AdminTagCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.TAG_SET_PLAYER.value.replace("{tag}", ChatColor.translateAlternateColorCodes('&', tag.display)).replace("{player}", "${profile.name}"))
 
         profile.tag = tag.name
-        dev.ryu.core.shared.CoreAPI.profileManager.repository.update(profile)
+        dev.ryu.core.shared.Shared.profileManager.repository.update(profile)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)

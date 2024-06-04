@@ -28,8 +28,9 @@ dependencies {
     compileOnly 'com.viaversion:viaversion-api:4.9.2'
     compileOnly 'com.comphenix.protocol:ProtocolLib:4.8.0';
     compileOnly 'org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT'
+    compileOnly 'dev.yek4h.spigot:Samurai-server:1.8.8-R0.1-SNAPSHOT'
 
-    compileOnly fileTree(dir: '.lib', include: '*.jar')
+    //compileOnly fileTree(dir: '.lib', include: '*.jar')
 }
 
 shadowJar {
@@ -74,15 +75,14 @@ ssh.settings {
 
 remotes {
     server {
-        host = '34.151.231.154'
+        host = '25.64.169.206'
         user = 'root'
-        password = 'hZ}2P5yA7%Ii8"Tr'
+        password = 'leanesgay'
     }
 }
-*/
+ */
 
-//C:\Users\le4ndev\Desktop\Testing\plugins
-def directory = Paths.get(System.getProperty("user.home"), "Desktop", "StarlightLLC", ".exported").toString()
+def directory = Paths.get(System.getProperty("user.home"), "Desktop", "Ryu Development", ".exported").toString()
 def pluginName = "rCore"
 
 tasks.withType(Jar).configureEach {
@@ -94,9 +94,9 @@ tasks.withType(Jar).configureEach {
         ssh.run {
             session(remotes.server) {
                 put from: "$directory\\$finalFileName", into: '/home/lean/plugins'
-                put from: "$directory\\$finalFileName", into: '/home/yek4h/test/plugins'
+                //put from: "$directory\\$finalFileName", into: '/home/yek4h/test/plugins'
                 put from: "$directory\\$finalFileName", into: '/home/deploys/settings/plugins/Core.jar'
-                execute('systemctl restart annihilation')
+                //execute('systemctl restart lean')
             }
         }
     }

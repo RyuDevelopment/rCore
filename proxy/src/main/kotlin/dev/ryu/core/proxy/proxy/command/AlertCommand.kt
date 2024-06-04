@@ -3,7 +3,6 @@ package dev.ryu.core.proxy.proxy.command
 import com.google.gson.JsonObject
 import dev.ryu.core.proxy.Core
 import dev.ryu.core.proxy.proxy.ProxyHandler
-import dev.ryu.core.shared.CoreAPI
 import dev.t4yrn.jupiter.Jupiter
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.CommandSender
@@ -44,7 +43,7 @@ class AlertCommand(private val instance: Core) : Command("alert","bungeecord.com
 
             jsonObject.addProperty("message",builder.substring(0,builder.length-1))
 
-            dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(ProxyHandler.ALERT_PACKET,jsonObject))
+            dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(ProxyHandler.ALERT_PACKET,jsonObject))
         }
 
     }

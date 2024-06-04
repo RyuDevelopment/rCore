@@ -1,6 +1,5 @@
 package dev.ryu.core.bukkit.parameter
 
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Rank
 import dev.ryu.core.shared.system.module.RankModule
 import com.starlight.nexus.command.data.parameter.ParameterType
@@ -18,7 +17,7 @@ import org.bukkit.entity.Player
 class RankParameterType : ParameterType<Rank>{
 
     override fun tabComplete(player: Player, flags: Set<String>, source: String): List<String> {
-        return dev.ryu.core.shared.CoreAPI.rankManager.cache.values.filter{ StringUtils.startsWithIgnoreCase(it.id,source)}.sortedBy{it.weight}.reversed().map{it.id}.toList()
+        return dev.ryu.core.shared.Shared.rankManager.cache.values.filter{ StringUtils.startsWithIgnoreCase(it.id,source)}.sortedBy{it.weight}.reversed().map{it.id}.toList()
     }
 
     override fun transform(sender: CommandSender, source: String): Rank? {

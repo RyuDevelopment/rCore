@@ -1,7 +1,6 @@
 package dev.ryu.core.shared.system.orbit
 
 import com.google.gson.JsonObject
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Grant
 import dev.ryu.core.shared.system.module.GrantModule
 import dev.t4yrn.jupiter.orbit.Orbit
@@ -25,11 +24,11 @@ class GrantOrbitListener : OrbitListener {
             return
         }
 
-        val grant = dev.ryu.core.shared.CoreAPI.getGson().fromJson(data, Grant::class.java)
+        val grant = dev.ryu.core.shared.Shared.getGson().fromJson(data, Grant::class.java)
 
         GrantModule.active[uuid]!!.add(grant)
 
-        val rank = dev.ryu.core.shared.CoreAPI.rankManager.findById(grant.rank) ?: return
+        val rank = dev.ryu.core.shared.Shared.rankManager.findById(grant.rank) ?: return
 
         GrantModule.findProvider().ifPresent{it.onGrantApply(uuid,grant)}
 
@@ -58,7 +57,7 @@ class GrantOrbitListener : OrbitListener {
             return
         }
 
-        val grant = dev.ryu.core.shared.CoreAPI.getGson().fromJson(data, Grant::class.java)
+        val grant = dev.ryu.core.shared.Shared.getGson().fromJson(data, Grant::class.java)
 
         GrantModule.active[uuid]!!.removeIf{it.rank == grant.rank}
         GrantModule.active[uuid]!!.add(grant)

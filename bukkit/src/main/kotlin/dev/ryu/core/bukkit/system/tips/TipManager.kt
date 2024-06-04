@@ -12,7 +12,7 @@ object TipManager : IManager {
     private var lastTipIndex = -1
 
     override fun onEnable() {
-        val tipsSection = Core.get().config.getConfigurationSection("tips")
+        val tipsSection = Core.get().config.getConfigurationSection("tips.messages")
         if (tipsSection != null) {
             tips = tipsSection.getKeys(false).flatMap { key ->
                 tipsSection.getStringList(key)
@@ -38,7 +38,7 @@ object TipManager : IManager {
         val randomTip = tips.random()
 
         Bukkit.getOnlinePlayers().forEach {
-            it.playSound(Sound.NOTE_PLING, 10.0f, 0.15f)
+            it.playSound(it.location, Sound.valueOf(Core.get().config.getString("tips.settings.sound")), Core.get().config.getInt("tips.settings.volume").toFloat(), Core.get().config.getInt("tips.settings.pitch").toFloat())
         }
 
         Bukkit.broadcastMessage(randomTip)
@@ -53,7 +53,7 @@ object TipManager : IManager {
         val nextTip = tips[lastTipIndex]
 
         Bukkit.getOnlinePlayers().forEach {
-            it.playSound(Sound.NOTE_PLING, 10.0f, 0.15f)
+            it.playSound(it.location, Sound.valueOf(Core.get().config.getString("tips.settings.sound")), Core.get().config.getInt("tips.settings.volume").toFloat(), Core.get().config.getInt("tips.settings.pitch").toFloat())
         }
 
         Bukkit.broadcastMessage(nextTip)

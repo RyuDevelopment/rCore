@@ -12,13 +12,13 @@ import org.bukkit.event.inventory.ClickType
 class CoinShopMenu: Menu() {
 
     override fun getTitle(player: Player): String {
-        return Color.color(Core.get().coinshopFiles[0].config.getString("MENU.TITLE"))
+        return Color.color(Core.get().getCoinShopFileById("general").config.getString("MENU.TITLE"))
     }
 
     override fun getButtons(player: Player): MutableMap<Int, Button> {
         return mutableMapOf<Int, Button>().also { toReturn ->
-            val section = Core.get().coinshopFiles[0].config.getConfigurationSection("ITEMS")
-            val repeat = Core.get().coinshopFiles[0].config.getConfigurationSection("ITEMS-REPEATED")
+            val section = Core.get().getCoinShopFileById("general").config.getConfigurationSection("ITEMS")
+            val repeat = Core.get().getCoinShopFileById("general").config.getConfigurationSection("ITEMS-REPEATED")
 
             for (keys in repeat.getKeys(false)) {
                 for (i in repeat.getIntegerList("$keys.SLOT")) {
@@ -110,7 +110,7 @@ class CoinShopMenu: Menu() {
     }
 
     override fun size(player: Player): Int {
-        return Core.get().coinshopFiles[0].config.getInt("MENU.SIZE")
+        return Core.get().getCoinShopFileById("general").config.getInt("MENU.SIZE")
     }
 
 }

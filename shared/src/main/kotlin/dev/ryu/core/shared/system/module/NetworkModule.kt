@@ -3,7 +3,6 @@ package dev.ryu.core.shared.system.module
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.model.UpdateOptions
 import com.mongodb.client.result.UpdateResult
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Group
 import dev.ryu.core.shared.system.Proxy
 import dev.ryu.core.shared.system.Server
@@ -31,9 +30,9 @@ object NetworkModule {
     private val serversCollection: MongoCollection<Document> = BackendModule.getCollection("servers")
 
     init {
-        groupsCollection.find().forEach{ groups.add(dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Group::class.java))}
-        proxiesCollection.find().forEach{ proxies.add(dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Proxy::class.java))}
-        serversCollection.find().forEach{ servers.add(dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Server::class.java))}
+        groupsCollection.find().forEach{ groups.add(dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Group::class.java))}
+        proxiesCollection.find().forEach{ proxies.add(dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Proxy::class.java))}
+        serversCollection.find().forEach{ servers.add(dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Server::class.java))}
 
         BackendModule.getJupiter().addListener(NetworkOrbitListener())
     }
@@ -52,7 +51,7 @@ object NetworkModule {
 
     fun update(group: Group):UpdateResult {
 
-        val toReturn = groupsCollection.updateOne(Document("_id",group.id),Document("\$set",Document.parse(dev.ryu.core.shared.CoreAPI.getGson().toJson(group))), UpdateOptions().upsert(true))
+        val toReturn = groupsCollection.updateOne(Document("_id",group.id),Document("\$set",Document.parse(dev.ryu.core.shared.Shared.getGson().toJson(group))), UpdateOptions().upsert(true))
 
         if (toReturn.wasAcknowledged()) {
             BackendModule.getJupiter().sendPacket(Jupiter(Group.UPDATE_ID,group))
@@ -63,7 +62,7 @@ object NetworkModule {
 
     fun update(proxy: Proxy):UpdateResult {
 
-        val toReturn = proxiesCollection.updateOne(Document("_id",proxy.id),Document("\$set",Document.parse(dev.ryu.core.shared.CoreAPI.getGson().toJson(proxy))), UpdateOptions().upsert(true))
+        val toReturn = proxiesCollection.updateOne(Document("_id",proxy.id),Document("\$set",Document.parse(dev.ryu.core.shared.Shared.getGson().toJson(proxy))), UpdateOptions().upsert(true))
 
         if (toReturn.wasAcknowledged()) {
             BackendModule.getJupiter().sendPacket(Jupiter(Proxy.UPDATE_ID,proxy))
@@ -74,7 +73,7 @@ object NetworkModule {
 
     fun update(server: Server):UpdateResult {
 
-        val toReturn = serversCollection.updateOne(Document("_id",server.id),Document("\$set",Document.parse(dev.ryu.core.shared.CoreAPI.getGson().toJson(server))), UpdateOptions().upsert(true))
+        val toReturn = serversCollection.updateOne(Document("_id",server.id),Document("\$set",Document.parse(dev.ryu.core.shared.Shared.getGson().toJson(server))), UpdateOptions().upsert(true))
 
         if (toReturn.wasAcknowledged()) {
             BackendModule.getJupiter().sendPacket(Jupiter(Server.UPDATE_ID,server))

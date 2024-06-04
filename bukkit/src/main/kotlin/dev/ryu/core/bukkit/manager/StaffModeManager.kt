@@ -34,9 +34,9 @@ object StaffModeManager {
 
         savePlayerInventory(player)
 
-        player.setMetadata("staffmode", FixedMetadataValue(dev.ryu.core.bukkit.Core.get(), "staffmode"))
+        player.setMetadata("staffmode", FixedMetadataValue(Core.get(), "staffmode"))
 
-        when (dev.ryu.core.bukkit.Core.get().staffModeType) {
+        when (Core.get().staffModeType) {
             PRACTICE -> {
                 val vanishItem = PracticeHotbar.VANISH
 
@@ -88,7 +88,7 @@ object StaffModeManager {
 
         restorePlayerInventory(player)
 
-        player.removeMetadata("staffMode", dev.ryu.core.bukkit.Core.get())
+        player.removeMetadata("staffMode", Core.get())
 
         player.gameMode = GameMode.SURVIVAL
 
@@ -109,7 +109,7 @@ object StaffModeManager {
         staff.updateInventory()
 
         staff.spigot().collidesWithEntities = false;
-        staff.setMetadata("invisible", FixedMetadataValue(dev.ryu.core.bukkit.Core.get(), true))
+        staff.setMetadata("invisible", FixedMetadataValue(Core.get(), true))
         staff.sendMessage("${ChatColor.GREEN}You have entered vanish mode! Now only staff members can see you.")
     }
 
@@ -127,7 +127,7 @@ object StaffModeManager {
         staff.updateInventory()
 
         staff.spigot().collidesWithEntities = true;
-        staff.removeMetadata("invisible", dev.ryu.core.bukkit.Core.get())
+        staff.removeMetadata("invisible", Core.get())
         staff.sendMessage("${ChatColor.YELLOW}You have exited vanish mode. Now all players can see you again!")
     }
 
@@ -138,7 +138,7 @@ object StaffModeManager {
 
             savePlayerInventory(target)
 
-            target.setMetadata("frozen", FixedMetadataValue(dev.ryu.core.bukkit.Core.get(), "frozen"))
+            target.setMetadata("frozen", FixedMetadataValue(Core.get(), "frozen"))
             sender.sendMessage("${ChatColor.RED}${ChatColor.BOLD}${target.name} is now frozen.")
 
         } else {
@@ -155,7 +155,7 @@ object StaffModeManager {
 
             restorePlayerInventory(target)
 
-            target.removeMetadata("frozen", dev.ryu.core.bukkit.Core.get())
+            target.removeMetadata("frozen", Core.get())
             sender.sendMessage("${ChatColor.GREEN}${ChatColor.BOLD}${target.name} is now unfrozen.")
         }
     }

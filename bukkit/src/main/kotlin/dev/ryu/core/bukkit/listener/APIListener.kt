@@ -6,12 +6,13 @@ import com.starlight.nexus.manager.EventManager
 import com.starlight.nexus.util.Color
 import com.starlight.nexus.util.time.TimeUtil
 import dev.ryu.core.bukkit.Core
+import dev.ryu.core.bukkit.CoreAPI
 import dev.ryu.core.bukkit.event.profile.ProfileLoadEvent
 import dev.ryu.core.bukkit.listener.orbit.PunishmentOrbitListener
 import dev.ryu.core.bukkit.prompt.server.info.CustomServerInfo
 import dev.ryu.core.bukkit.system.profile.ProfileLoadException
 import dev.ryu.core.linker.manager.ModuleManager
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Profile
 import dev.ryu.core.shared.system.Punishment
 import dev.ryu.core.shared.system.module.GrantModule
@@ -58,12 +59,12 @@ object APIListener {
                 return@subscribe
             }
 
-            val document = CoreAPI.backendManager.getCollection("profiles").find(Filters.eq("_id",uniqueId.toString())).first()
+            val document = Shared.backendManager.getCollection("profiles").find(Filters.eq("_id",uniqueId.toString())).first()
 
             val profile: Profile = if (document == null) Profile(uniqueId) else {
 
                 try {
-                    CoreAPI.getGson().fromJson(document.toJson(), Profile::class.java)
+                    Shared.getGson().fromJson(document.toJson(), Profile::class.java)
                 } catch (ex: Exception) {
                     loginResult = AsyncPlayerPreLoginEvent.Result.KICK_OTHER
                     kickMessage = "${ChatColor.RED}There was an issue contacting the API, please try again later."
@@ -76,7 +77,7 @@ object APIListener {
 
             profile.online = true
 
-            val updateName = profile.name != name || !CoreAPI.profileManager.isCached(uniqueId)
+            val updateName = profile.name != name || !Shared.profileManager.isCached(uniqueId)
             val updateAddress = !profile.addresses.contains(identifier)
 
             if (updateName || updateAddress) {
@@ -95,12 +96,12 @@ object APIListener {
                         payload.addProperty("_id",uniqueId.toString())
                         payload.addProperty("name",name)
 
-                        CoreAPI.profileManager.updateId(uniqueId,name)
-                        CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(Profile.PROFILE_NAME_UPDATE,payload))
+                        Shared.profileManager.updateId(uniqueId,name)
+                        Shared.backendManager.getJupiter().sendPacket(Jupiter(Profile.PROFILE_NAME_UPDATE,payload))
                     }
 
                     if (updateAddress) {
-                        CoreAPI.profileManager.repository.update(profile)
+                        Shared.profileManager.repository.update(profile)
                     }
 
                 }
@@ -125,12 +126,12 @@ object APIListener {
 
             PunishmentModule.mutes[profile.id] = punishments.filter{it.type == Punishment.Type.MUTE}.toHashSet()
 
-            CoreAPI.profileManager.cache[profile.id] = profile
+            Shared.profileManager.cache[profile.id] = profile
 
             val grants = GrantModule.repository.findAllByPlayer(uniqueId)
 
             if (grants.isEmpty()) {
-                GrantModule.grant(CoreAPI.rankManager.defaultRank, profile.id, UUID.fromString(Profile.CONSOLE_UUID), "Initial Rank", 0L)
+                GrantModule.grant(Shared.rankManager.defaultRank, profile.id, UUID.fromString(Profile.CONSOLE_UUID), "Initial Rank", 0L)
             }
 
             GrantModule.active[profile.id] = ArrayList()
@@ -242,7 +243,7 @@ object APIListener {
 
             val messageFormat = Core.get().config.getString("chatFormat.text")
                 .replace("{rank}", Color.color(prefix))
-                .replace("{tag}", getActiveTag(player) + "${ChatColor.RESET}")
+                .replace("{tag}", CoreAPI.getActivePlayerTag(player) + "${ChatColor.RESET}")
                 .replace("{name}",Color.color("${ChatColor.getLastColors(prefix) ?: ChatColor.WHITE.toString()}${player.name}") + "${ChatColor.RESET}: ")
                 .replace("{message}", "$color${message}")
 
@@ -272,22 +273,6 @@ object APIListener {
             }
         }
 
-    }
-
-    fun getActiveTag(player: Player): String {
-        val profile = ProfileModule.findById(player.uniqueId)!!
-
-        if (profile.tag.isNullOrBlank()) {
-            return ""
-        }
-
-        val foundTag = CoreAPI.tagManager.findByName(profile.tag!!)
-
-        if (foundTag?.display != null) {
-            return ChatColor.translateAlternateColorCodes('&', foundTag.display)
-        }
-
-        return ""
     }
 
 }

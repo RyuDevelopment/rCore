@@ -4,7 +4,6 @@ import dev.ryu.core.bukkit.menu.grant.apply.element.GrantElement
 import com.starlight.nexus.menu.button.Button
 import com.starlight.nexus.menu.button.impl.GlassButton
 import com.starlight.nexus.menu.PaginatedMenu
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Profile
 import dev.ryu.core.shared.system.module.GrantModule
 import dev.ryu.core.shared.system.module.ProfileModule
@@ -34,9 +33,9 @@ class GrantMenu(
         val senderProfile = ProfileModule.findById(player.uniqueId)!!
 
         val allRanks = if (senderProfile.isSuperUser) {
-            dev.ryu.core.shared.CoreAPI.rankManager.repository.findAllRanks().filter { GrantModule.findBestRank(player.uniqueId).weight >= it.weight}.sortedByDescending { it.weight }
+            dev.ryu.core.shared.Shared.rankManager.repository.findAllRanks().filter { GrantModule.findBestRank(player.uniqueId).weight >= it.weight}.sortedByDescending { it.weight }
         } else {
-            dev.ryu.core.shared.CoreAPI.rankManager.repository.findAllRanks().filter {!it.isDefault() && !it.isHidden() && GrantModule.findBestRank(player.uniqueId).weight >= it.weight}.sortedByDescending { it.weight }
+            dev.ryu.core.shared.Shared.rankManager.repository.findAllRanks().filter {!it.isDefault() && !it.isHidden() && GrantModule.findBestRank(player.uniqueId).weight >= it.weight}.sortedByDescending { it.weight }
         }
 
         return allRanks.withIndex().associate { it.index to GrantElement(it.value, this.profile) }.toMutableMap()

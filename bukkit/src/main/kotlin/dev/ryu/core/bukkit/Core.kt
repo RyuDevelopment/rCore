@@ -14,7 +14,7 @@ import dev.ryu.core.bukkit.system.staffmode.type.StaffModeType
 import dev.ryu.core.bukkit.system.tips.TipManager
 import dev.ryu.core.bukkit.system.webhook.WebHookManager
 import dev.ryu.core.linker.main.MLinker
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Code
 import dev.ryu.core.shared.system.Profile
 import dev.ryu.core.shared.system.Rank
@@ -44,7 +44,7 @@ class Core : JavaPlugin() {
             val configFile = SubFileConfig(this, "coinshop", "$it.yml")
             configFile.save()
 
-            coinshopFiles.add(configFile)
+            coinshopFiles[it] = configFile
         }
 
         nexus.instance = this;
@@ -57,8 +57,8 @@ class Core : JavaPlugin() {
         }
 
         MLinker.plugin = this
-        CoreAPI.moduleManager.externalModulesPath = externalModulesPath
-        CoreAPI.onEnable()
+        Shared.moduleManager.externalModulesPath = externalModulesPath
+        Shared.onEnable()
 
         LoaderManager.onEnable()
         PermissionManager.onEnable()
@@ -130,6 +130,7 @@ class Core : JavaPlugin() {
         }
 
         startupUptime = System.currentTimeMillis()
+        server.setWhitelist(false)
     }
 
     override fun onDisable() {
@@ -153,7 +154,7 @@ class Core : JavaPlugin() {
         ServerManager.onDisable()
         PermissionManager.onDisable()
         LoaderManager.onDisable()
-        CoreAPI.onDisable()
+        Shared.onDisable()
         Nexus.onDisable()
 
     }
@@ -164,7 +165,7 @@ class Core : JavaPlugin() {
     var nexus = Nexus
     var startupUptime: Long? = null
     lateinit var webhookManager: WebHookManager
-    var coinshopFiles: MutableList<SubFileConfig> = mutableListOf()
+    var coinshopFiles: MutableMap<String, SubFileConfig> = mutableMapOf()
 
     companion object {
 
@@ -172,6 +173,10 @@ class Core : JavaPlugin() {
             return getPlugin(Core::class.java)
         }
 
+    }
+
+    fun getCoinShopFileById(name: String): SubFileConfig {
+        return coinshopFiles[name]!!
     }
 
 }

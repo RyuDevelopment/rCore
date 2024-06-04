@@ -1,7 +1,6 @@
 package dev.ryu.core.shared.system.orbit
 
 import com.google.gson.JsonObject
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Profile
 import dev.t4yrn.jupiter.orbit.Orbit
 import dev.t4yrn.jupiter.orbit.OrbitListener
@@ -17,7 +16,7 @@ class ProfileOrbitListener : OrbitListener {
 
     @Orbit(Profile.PROFILE_NAME_UPDATE)
     fun onNameUpdate(data: JsonObject) {
-        dev.ryu.core.shared.CoreAPI.profileManager.updateId(UUID.fromString(data["_id"].asString),data["name"].asString)
+        dev.ryu.core.shared.Shared.profileManager.updateId(UUID.fromString(data["_id"].asString),data["name"].asString)
     }
 
 }

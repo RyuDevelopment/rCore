@@ -2,12 +2,12 @@ package dev.ryu.core.bukkit.menu.module.element
 
 import dev.ryu.core.linker.manager.ModuleManager
 import dev.ryu.core.linker.data.IModule
-import dev.ryu.core.shared.CoreAPI.backendManager
-import dev.ryu.core.shared.CoreAPI.codeManager
-import dev.ryu.core.shared.CoreAPI.grantManager
-import dev.ryu.core.shared.CoreAPI.profileManager
-import dev.ryu.core.shared.CoreAPI.punishmentManager
-import dev.ryu.core.shared.CoreAPI.rankManager
+import dev.ryu.core.shared.Shared.backendManager
+import dev.ryu.core.shared.Shared.codeManager
+import dev.ryu.core.shared.Shared.grantManager
+import dev.ryu.core.shared.Shared.profileManager
+import dev.ryu.core.shared.Shared.punishmentManager
+import dev.ryu.core.shared.Shared.rankManager
 import com.starlight.nexus.util.UnicodeUtil
 import com.starlight.nexus.menu.button.Button
 import com.starlight.nexus.util.TextSplitter

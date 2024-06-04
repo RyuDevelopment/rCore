@@ -1,9 +1,7 @@
 package dev.ryu.core.bukkit.menu.rank
 
-import dev.ryu.core.bukkit.Core
 import dev.ryu.core.bukkit.menu.rank.editor.*
 import dev.ryu.core.bukkit.prompt.rank.RankModifyPrompt
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Rank
 import dev.ryu.core.shared.system.module.CodeModule
 import com.starlight.nexus.util.UnicodeUtil
@@ -68,7 +66,7 @@ class RankEditor(
                 ))
                 .action(ClickType.LEFT) {
                     this.rank.weight++
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
                 .action(ClickType.RIGHT) {
                     if (this.rank.weight == 0) {
@@ -76,15 +74,15 @@ class RankEditor(
                         return@action
                     }
                     this.rank.weight--
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
                 .action(ClickType.MIDDLE) {
                     this.rank.weight = 1
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
                 .action(ClickType.SHIFT_LEFT) {
                     this.rank.weight += 10
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
                 .action(ClickType.SHIFT_RIGHT) {
                     val decrementAmount = 10
@@ -93,7 +91,7 @@ class RankEditor(
                         return@action
                     }
                     this.rank.weight -= decrementAmount
-                    dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                    dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
                 }
 
             toReturn[4] = MenuButton()

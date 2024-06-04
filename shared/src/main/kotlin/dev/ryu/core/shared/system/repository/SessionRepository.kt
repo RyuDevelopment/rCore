@@ -3,7 +3,7 @@ package dev.ryu.core.shared.system.repository
 import com.google.gson.GsonBuilder
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Session
 import dev.ryu.core.shared.system.extra.IRepository
 import com.starlight.nexus.util.LongDeserializer
@@ -30,36 +30,36 @@ class SessionRepository : IRepository<UUID, Session> {
     }
 
     override fun update(value: Session): Boolean {
-        val document = Document.parse(CoreAPI.getGson().toJson(value))
+        val document = Document.parse(Shared.getGson().toJson(value))
         val idFilter = Filters.eq("_id", value.id)
 
-        return CoreAPI.backendManager.getCollection("sessions").replaceOne(idFilter, document, ReplaceOptions().upsert(true)).wasAcknowledged()
+        return Shared.backendManager.getCollection("sessions").replaceOne(idFilter, document, ReplaceOptions().upsert(true)).wasAcknowledged()
     }
 
     override fun delete(value: Session): Boolean {
-        return CoreAPI.backendManager.getCollection("sessions").deleteOne(Filters.eq("_id", value.id)).wasAcknowledged()
+        return Shared.backendManager.getCollection("sessions").deleteOne(Filters.eq("_id", value.id)).wasAcknowledged()
     }
 
     override fun findById(id: UUID): Session? {
 
-        val document = CoreAPI.backendManager.getCollection("sessions").find(Filters.eq("_id",id.toString())).first() ?: return null
+        val document = Shared.backendManager.getCollection("sessions").find(Filters.eq("_id",id.toString())).first() ?: return null
 
-        return CoreAPI.getGson().fromJson(document.toJson(),Session::class.java)
+        return Shared.getGson().fromJson(document.toJson(),Session::class.java)
     }
 
     fun findMostRecentById(id: UUID): Session? {
-        val document = CoreAPI.backendManager.getCollection("sessions").find(Filters.eq("uuid",id.toString())).sort(Filters.eq("joinedAt",-1)).limit(1).first() ?: return null
+        val document = Shared.backendManager.getCollection("sessions").find(Filters.eq("uuid",id.toString())).sort(Filters.eq("joinedAt",-1)).limit(1).first() ?: return null
 
-        return CoreAPI.getGson().fromJson(document.toJson(), Session::class.java)
+        return Shared.getGson().fromJson(document.toJson(), Session::class.java)
     }
 
     fun findTotalPlaytimeById(id: UUID): Long {
         val filter = Filters.eq("uuid", id.toString())
-        val cursor = CoreAPI.backendManager.getCollection("sessions").find(filter)
+        val cursor = Shared.backendManager.getCollection("sessions").find(filter)
 
         var totalPlaytime = 0L
         cursor.forEach {
-            val session = CoreAPI.getGson().fromJson(it.toJson(), Session::class.java)
+            val session = Shared.getGson().fromJson(it.toJson(), Session::class.java)
             totalPlaytime += if (session.leftAt != null) {
                 (session.leftAt!! - session.joinedAt)
             } else {
@@ -74,7 +74,7 @@ class SessionRepository : IRepository<UUID, Session> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
 
         val filter = Filters.eq("uuid", id.toString())
-        val cursor = CoreAPI.backendManager.getCollection("sessions").find(filter)
+        val cursor = Shared.backendManager.getCollection("sessions").find(filter)
 
         val sessionsSet = mutableSetOf<Session>()
         cursor.forEach {
@@ -89,7 +89,7 @@ class SessionRepository : IRepository<UUID, Session> {
     fun findAllSessions(): MutableSet<Session> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
 
-        val cursor = CoreAPI.backendManager.getCollection("sessions").find()
+        val cursor = Shared.backendManager.getCollection("sessions").find()
 
         val sessionsSet = mutableSetOf<Session>()
         cursor.forEach {

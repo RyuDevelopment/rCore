@@ -1,12 +1,10 @@
 package dev.ryu.core.bukkit.manager
 
 import com.google.gson.JsonObject
-import dev.ryu.core.bukkit.Core
 import dev.ryu.core.bukkit.listener.PermissionListener
 import dev.ryu.core.bukkit.listener.orbit.PermissionOrbitListener
 import dev.ryu.core.bukkit.system.permission.VPermissible
 import dev.ryu.core.bukkit.event.permission.PermissionUpdateEvent
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Profile
 import dev.ryu.core.shared.system.extra.IManager
 import dev.ryu.core.shared.system.module.ProfileModule
@@ -29,7 +27,7 @@ object PermissionManager : IManager {
         HUMAN_ENTITY_PERMISSIBLE_FIELD.isAccessible = true
 
         dev.ryu.core.bukkit.Core.get().server.pluginManager.registerEvents(PermissionListener, dev.ryu.core.bukkit.Core.get())
-        dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().addListener(PermissionOrbitListener())
+        dev.ryu.core.shared.Shared.backendManager.getJupiter().addListener(PermissionOrbitListener())
     }
 
     override fun onDisable() {
@@ -69,7 +67,7 @@ object PermissionManager : IManager {
             jsonObject.addProperty("remove",remove)
             jsonObject.addProperty("permission",permission)
 
-            dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(Profile.PERMISSION_UPDATE_PACKET,jsonObject))
+            dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(Profile.PERMISSION_UPDATE_PACKET,jsonObject))
         }
 
         return toReturn

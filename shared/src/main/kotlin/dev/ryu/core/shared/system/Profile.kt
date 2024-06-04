@@ -2,6 +2,7 @@ package dev.ryu.core.shared.system
 
 import com.google.gson.annotations.SerializedName
 import com.starlight.nexus.util.time.TimeUtil
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.module.PunishmentModule
 import dev.ryu.core.shared.system.module.ReportModule
 import java.util.*
@@ -44,6 +45,10 @@ class Profile(
     var requests: MutableList<UUID> = mutableListOf()
     var permissions: MutableList<String> = mutableListOf()
 
+    fun save() {
+        Shared.profileManager.repository.update(this)
+    }
+
     fun setSuperUser(value: Boolean) : Boolean {
         return value.also { this.isSuperUser = it }
     }
@@ -56,12 +61,32 @@ class Profile(
         return TimeUtil.formatIntoCalendarString(Date(this.lastJoined!!))
     }
 
-    fun isPlayerPunished(): Boolean {
+    fun isMuted(uuid: UUID): Boolean {
+        return PunishmentModule.mutes[uuid]?.any{it.type == Punishment.Type.MUTE && it.getRemaining() > 0} ?: false
+    }
+
+    fun isBlacklisted(): Boolean {
         val punishments = PunishmentModule.repository.findByVictimOrIdentifier(this.id,this.addresses)
 
         if (punishments.isNotEmpty()) {
 
-            val punishment = PunishmentModule.repository.findMostRecentPunishment(punishments,arrayListOf(Punishment.Type.BLACKLIST,Punishment.Type.BAN))
+            val punishment = PunishmentModule.repository.findMostRecentPunishment(punishments,Punishment.Type.BLACKLIST)
+
+            if (punishment != null) {
+                return true
+            }
+
+        }
+
+        return false
+    }
+
+    fun isPunished(): Boolean {
+        val punishments = PunishmentModule.repository.findByVictimOrIdentifier(this.id,this.addresses)
+
+        if (punishments.isNotEmpty()) {
+
+            val punishment = PunishmentModule.repository.findMostRecentPunishment(punishments,Punishment.Type.BAN)
 
             if (punishment != null) {
                 return true

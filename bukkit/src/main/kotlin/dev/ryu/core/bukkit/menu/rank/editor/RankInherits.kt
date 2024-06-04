@@ -1,7 +1,6 @@
 package dev.ryu.core.bukkit.menu.rank.editor
 
 import dev.ryu.core.bukkit.menu.rank.RankEditor
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Rank
 import com.starlight.nexus.menu.button.Button
 import com.starlight.nexus.menu.button.impl.GlassButton
@@ -12,7 +11,6 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.ClickType
-import org.bukkit.inventory.InventoryView
 
 class RankInherits(private val rank: Rank) : PaginatedMenu() {
 
@@ -28,7 +26,7 @@ class RankInherits(private val rank: Rank) : PaginatedMenu() {
     override fun getAllPagesButtons(player: Player): MutableMap<Int, Button> {
         val toReturn = HashMap<Int,Button>()
 
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.findAllRanks().filter{it.id != this.rank.id}.sortedBy{it.weight}.forEach{toReturn[toReturn.size] = object : Button() {
+        dev.ryu.core.shared.Shared.rankManager.repository.findAllRanks().filter{it.id != this.rank.id}.sortedBy{it.weight}.forEach{toReturn[toReturn.size] = object : Button() {
 
             override fun getName(player: Player): String {
                 return Color.color(it.display)
@@ -68,7 +66,7 @@ class RankInherits(private val rank: Rank) : PaginatedMenu() {
                     rank.inherits.remove(it.id)
                 }
 
-                dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
             }
 
         }}

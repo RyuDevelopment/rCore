@@ -1,7 +1,6 @@
 package dev.ryu.core.shared.system
 
 import com.google.gson.annotations.SerializedName
-import dev.ryu.core.shared.CoreAPI
 import java.util.*
 
 /*
@@ -56,11 +55,11 @@ class Grant(
     }
 
     fun getRank(): Rank? {
-        return dev.ryu.core.shared.CoreAPI.rankManager.findById(this.rank)
+        return dev.ryu.core.shared.Shared.rankManager.findById(this.rank)
     }
 
     fun getPriority():Int {
-        return dev.ryu.core.shared.CoreAPI.rankManager.findById(this.rank)?.weight ?: 0
+        return dev.ryu.core.shared.Shared.rankManager.findById(this.rank)?.weight ?: 0
     }
 
     companion object {

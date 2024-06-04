@@ -47,7 +47,7 @@ object RankCommand {
         sender: CommandSender,
         @Param("rank") name: String
     ) {
-        val rank = dev.ryu.core.shared.CoreAPI.rankManager.findById(name)
+        val rank = dev.ryu.core.shared.Shared.rankManager.findById(name)
 
         if (rank != null) {
             sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_ALREADY_EXISTS_ERROR.value.replace("{rank}", name))
@@ -60,8 +60,8 @@ object RankCommand {
         newRank.createdAt = System.currentTimeMillis()
         newRank.display = "&7${newRank.id}"
 
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(newRank)
-        dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(Rank.RANK_CREATED, newRank))
+        dev.ryu.core.shared.Shared.rankManager.repository.update(newRank)
+        dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(Rank.RANK_CREATED, newRank))
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -76,8 +76,8 @@ object RankCommand {
     ) {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_DELETE_COMMAND.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}"))
 
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.delete(rank)
-        dev.ryu.core.shared.CoreAPI.rankManager.cache.remove(rank.id)
+        dev.ryu.core.shared.Shared.rankManager.repository.delete(rank)
+        dev.ryu.core.shared.Shared.rankManager.cache.remove(rank.id)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -122,7 +122,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_DISPLAY.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{display}", Color.color(display)))
 
         rank.display = display
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -139,7 +139,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_PREFIX.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{prefix}", Color.color(prefix)))
 
         rank.prefix = Color.color(prefix)
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -156,7 +156,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_COLOR.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{color}", "${ChatColor.valueOf(color.name)}${Color.convert(color.name)}"))
 
         rank.color = color.name
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -178,7 +178,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_WEIGHT.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{weight}", weight.toString()))
 
         rank.weight = weight
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -195,7 +195,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_DISCORD_ID.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{discordId}", discordId))
 
         rank.discordId = discordId;
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -218,7 +218,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_STAFF_STATUS.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{status}", statusDisplay))
 
         rank.staff = status
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -241,7 +241,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_MEDIA_STATUS.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{status}", statusDisplay))
 
         rank.media = status
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -264,7 +264,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_HIDDEN_STATUS.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{status}", statusDisplay))
 
         rank.hidden = status
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -287,7 +287,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_DEFAULT_STATUS.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{status}", statusDisplay))
 
         rank.default = status
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -310,7 +310,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_GRANTABLE_STATUS.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{status}", statusDisplay))
 
         rank.grantable = status
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -333,7 +333,7 @@ object RankCommand {
         sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_CHANGED_DONATOR_STATUS.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{status}", statusDisplay))
 
         rank.donator = status
-        dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+        dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
 
         if (sender is Player) {
             sender.playSound(sender.location, Sound.NOTE_PLING, 0.2F, 1.5F)
@@ -351,12 +351,12 @@ object RankCommand {
             sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_INHERIT_ADDED.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{inherit}", "${ChatColor.valueOf(inherit.color)}${inherit.id}"))
 
             rank.inherits.add(inherit.id)
-            dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+            dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
         } else {
             sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_INHERIT_REMOVED.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{inherit}", "${ChatColor.valueOf(inherit.color)}${inherit.id}"))
 
             rank.inherits.remove(inherit.id)
-            dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+            dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
         }
 
         if (sender is Player) {
@@ -375,12 +375,12 @@ object RankCommand {
             sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_PERMISSION_ADDED.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{permission}", permission))
 
             rank.permissions.add(permission)
-            dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+            dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
         } else {
             sender.sendMessage(Lang.CORE_PREFIX.value + Lang.RANK_PERMISSION_REMOVED.value.replace("{rank}", "${ChatColor.valueOf(rank.color)}${rank.id}").replace("{permission}", permission))
 
             rank.permissions.remove(permission)
-            dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+            dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
         }
 
         if (sender is Player) {

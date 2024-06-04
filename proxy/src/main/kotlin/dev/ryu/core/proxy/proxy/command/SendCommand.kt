@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet
 import com.google.gson.JsonObject
 import dev.ryu.core.proxy.Core
 import dev.ryu.core.proxy.proxy.ProxyHandler
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.module.NetworkModule
 import dev.ryu.core.shared.system.module.ProfileModule
 import dev.t4yrn.jupiter.Jupiter
@@ -69,10 +68,10 @@ class SendCommand(private val instance: Core) : Command("send","bungeecord.comma
 
                 jsonObject.addProperty("proxy",this.instance.proxy.name)
                 jsonObject.addProperty("server",server.name)
-                jsonObject.addProperty("players", dev.ryu.core.shared.CoreAPI.getGson().toJson(players))
+                jsonObject.addProperty("players", dev.ryu.core.shared.Shared.getGson().toJson(players))
                 jsonObject.addProperty("displayName",displayName)
 
-                dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(ProxyHandler.SEND_PACKET,jsonObject))
+                dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(ProxyHandler.SEND_PACKET,jsonObject))
             }
 
         }

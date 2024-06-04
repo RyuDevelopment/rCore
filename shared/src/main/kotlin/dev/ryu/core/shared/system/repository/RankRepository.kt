@@ -3,7 +3,7 @@ package dev.ryu.core.shared.system.repository
 import com.google.gson.GsonBuilder
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.UpdateOptions
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Rank
 import dev.ryu.core.shared.system.extra.IRepository
 import dev.ryu.core.shared.system.module.RankModule
@@ -25,12 +25,12 @@ class RankRepository : IRepository<String, Rank> {
     **/
 
     override fun pull(): Map<String, Rank> {
-        return CoreAPI.backendManager.getCollection("ranks").find().map { CoreAPI.getGson().fromJson(it.toJson(), Rank::class.java) }.associateBy { it.id }.toMutableMap()
+        return Shared.backendManager.getCollection("ranks").find().map { Shared.getGson().fromJson(it.toJson(), Rank::class.java) }.associateBy { it.id }.toMutableMap()
     }
 
     override fun update(value: Rank): Boolean {
-        val result = CoreAPI.backendManager.getCollection("ranks").updateOne(Filters.eq("_id", value.id), Document("\$set", Document.parse(
-            CoreAPI.getGson().toJson(value))), UpdateOptions().upsert(true))
+        val result = Shared.backendManager.getCollection("ranks").updateOne(Filters.eq("_id", value.id), Document("\$set", Document.parse(
+            Shared.getGson().toJson(value))), UpdateOptions().upsert(true))
 
         return if (result.wasAcknowledged()) {
             RankModule.cache[value.id] = value
@@ -41,20 +41,20 @@ class RankRepository : IRepository<String, Rank> {
     }
 
     override fun delete(value: Rank): Boolean {
-        return CoreAPI.backendManager.getCollection("ranks").deleteOne(Filters.eq("_id", value.id)).wasAcknowledged()
+        return Shared.backendManager.getCollection("ranks").deleteOne(Filters.eq("_id", value.id)).wasAcknowledged()
     }
 
     override fun findById(id: String): Rank? {
 
-        val document = CoreAPI.backendManager.getCollection("ranks").find(Filters.eq("_id", id)).first() ?: return null
+        val document = Shared.backendManager.getCollection("ranks").find(Filters.eq("_id", id)).first() ?: return null
 
-        return CoreAPI.getGson().fromJson(document.toJson(), Rank::class.java)
+        return Shared.getGson().fromJson(document.toJson(), Rank::class.java)
     }
 
     fun findAllRanks() : MutableSet<Rank> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
 
-        val cursor = CoreAPI.backendManager.getCollection("ranks").find()
+        val cursor = Shared.backendManager.getCollection("ranks").find()
 
         val codeSet = mutableSetOf<Rank>()
         cursor.forEach {

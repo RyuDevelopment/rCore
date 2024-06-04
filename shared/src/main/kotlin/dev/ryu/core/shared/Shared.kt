@@ -11,7 +11,7 @@ import dev.ryu.core.shared.system.module.*
     * Date: 20/2/2024 - 11:50
 */
 
-object CoreAPI : IManager {
+object Shared : IManager {
 
     val moduleManager: ModuleManager = ModuleManager
     var backendManager: BackendModule = BackendModule
@@ -46,7 +46,7 @@ object CoreAPI : IManager {
         moduleManager.onDisable()
     }
 
-    fun get(): CoreAPI {
+    fun get(): Shared {
         return this
     }
 

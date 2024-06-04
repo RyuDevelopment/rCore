@@ -2,7 +2,6 @@ package dev.ryu.core.shared.system.repository
 
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.UpdateOptions
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Punishment
 import dev.ryu.core.shared.system.extra.IRepository
 import org.bson.Document
@@ -28,19 +27,19 @@ class PunishmentRepository : IRepository<UUID, Punishment> {
     }
 
     override fun update(value: Punishment): Boolean {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("punishments").updateOne(Filters.eq("_id",value.id.toString()),Document("\$set",Document.parse(
-            dev.ryu.core.shared.CoreAPI.getGson().toJson(value))), UpdateOptions().upsert(true)).wasAcknowledged()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("punishments").updateOne(Filters.eq("_id",value.id.toString()),Document("\$set",Document.parse(
+            dev.ryu.core.shared.Shared.getGson().toJson(value))), UpdateOptions().upsert(true)).wasAcknowledged()
     }
 
     override fun delete(value: Punishment): Boolean {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("punishments").deleteOne(Filters.eq("_id",value.id.toString())).wasAcknowledged()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("punishments").deleteOne(Filters.eq("_id",value.id.toString())).wasAcknowledged()
     }
 
     override fun findById(id: UUID): Punishment? {
 
-        val document = dev.ryu.core.shared.CoreAPI.backendManager.getCollection("punishments").find(Filters.eq("_id",id.toString())).first() ?: return null
+        val document = dev.ryu.core.shared.Shared.backendManager.getCollection("punishments").find(Filters.eq("_id",id.toString())).first() ?: return null
 
-        return dev.ryu.core.shared.CoreAPI.getGson().fromJson(document.toJson(), Punishment::class.java)
+        return dev.ryu.core.shared.Shared.getGson().fromJson(document.toJson(), Punishment::class.java)
     }
 
     fun findByVictim(victim: UUID,type: Punishment.Type):MutableSet<Punishment> {
@@ -48,11 +47,11 @@ class PunishmentRepository : IRepository<UUID, Punishment> {
     }
 
     fun findByVictim(victim: UUID,types: MutableList<Punishment.Type>):MutableSet<Punishment> {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("punishments").find(Filters.eq("victim",victim.toString())).map{ dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Punishment::class.java)}.filter{types.contains(it.type)}.toMutableSet()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("punishments").find(Filters.eq("victim",victim.toString())).map{ dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Punishment::class.java)}.filter{types.contains(it.type)}.toMutableSet()
     }
 
     fun findByVictimOrIdentifier(victim: UUID,addresses: MutableList<String>):MutableSet<Punishment> {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("punishments").find(Filters.or(Filters.eq("victim",victim.toString()),Filters.or(addresses.map{Filters.eq("addresses",it)}))).map{ dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Punishment::class.java)}.toMutableSet()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("punishments").find(Filters.or(Filters.eq("victim",victim.toString()),Filters.or(addresses.map{Filters.eq("addresses",it)}))).map{ dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Punishment::class.java)}.toMutableSet()
     }
 
     fun findBySender(uuid: UUID,type: Punishment.Type):MutableSet<Punishment> {
@@ -60,11 +59,11 @@ class PunishmentRepository : IRepository<UUID, Punishment> {
     }
 
     fun findBySender(uuid: UUID,types: MutableList<Punishment.Type>):MutableSet<Punishment> {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("punishments").find(Filters.eq("sender",uuid.toString())).map{ dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Punishment::class.java)}.filter{types.contains(it.type)}.toMutableSet()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("punishments").find(Filters.eq("sender",uuid.toString())).map{ dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Punishment::class.java)}.filter{types.contains(it.type)}.toMutableSet()
     }
 
     fun findBySenderOrPardoner(uuid: UUID):MutableSet<Punishment> {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("punishments").find(Filters.or(arrayListOf(Filters.eq("sender",uuid.toString()),Filters.eq("pardoner",uuid.toString())))).map{ dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Punishment::class.java)}.toMutableSet()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("punishments").find(Filters.or(arrayListOf(Filters.eq("sender",uuid.toString()),Filters.eq("pardoner",uuid.toString())))).map{ dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Punishment::class.java)}.toMutableSet()
     }
 
     fun findMostRecentPunishment(punishments: MutableSet<Punishment>): Punishment? {

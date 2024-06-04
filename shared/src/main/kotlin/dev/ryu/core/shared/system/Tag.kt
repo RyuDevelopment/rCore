@@ -2,7 +2,6 @@ package dev.ryu.core.shared.system
 
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
-import dev.ryu.core.shared.CoreAPI
 import org.bson.Document
 import java.util.concurrent.CompletableFuture
 
@@ -34,14 +33,14 @@ class Tag(
 
         if (async) {
             CompletableFuture.runAsync {
-                dev.ryu.core.shared.CoreAPI.backendManager.getCollection("tags").replaceOne(
+                dev.ryu.core.shared.Shared.backendManager.getCollection("tags").replaceOne(
                     Filters.eq("_id", this.name),
                     document,
                     ReplaceOptions().upsert(true)
                 )
             }
         } else {
-            dev.ryu.core.shared.CoreAPI.backendManager.getCollection("tags").replaceOne(
+            dev.ryu.core.shared.Shared.backendManager.getCollection("tags").replaceOne(
                 Filters.eq("_id", this.name),
                 document,
                 ReplaceOptions().upsert(true)
@@ -50,7 +49,7 @@ class Tag(
     }
 
     fun load() {
-        val document = dev.ryu.core.shared.CoreAPI.backendManager.getCollection("tags").find(Filters.eq("_id", this.name)).first() ?: return
+        val document = dev.ryu.core.shared.Shared.backendManager.getCollection("tags").find(Filters.eq("_id", this.name)).first() ?: return
 
         this.display = document.getString("display")
         this.permission = document.getString("permission")
@@ -59,8 +58,8 @@ class Tag(
     }
 
     fun delete() {
-        dev.ryu.core.shared.CoreAPI.tagManager.tags.remove(this.name)
-        dev.ryu.core.shared.CoreAPI.backendManager.getCollection("tags").deleteOne(Filters.eq("_id", this.name))
+        dev.ryu.core.shared.Shared.tagManager.tags.remove(this.name)
+        dev.ryu.core.shared.Shared.backendManager.getCollection("tags").deleteOne(Filters.eq("_id", this.name))
     }
 
 }

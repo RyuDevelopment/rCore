@@ -3,7 +3,7 @@ package dev.ryu.core.bukkit.command
 import com.starlight.nexus.command.Command
 import com.starlight.nexus.command.data.parameter.Param
 import dev.ryu.core.bukkit.menu.report.ReportMenu
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Profile
 import org.bukkit.ChatColor
 import org.bukkit.Sound
@@ -23,16 +23,16 @@ object ReportCommand {
             return
         }
 
-        val senderProfile = CoreAPI.profileManager.findById(sender.uniqueId)!!
+        val senderProfile = Shared.profileManager.findById(sender.uniqueId)!!
 
         if (System.currentTimeMillis() < senderProfile.reportCooldown) {
             sender.sendMessage(ChatColor.RED.toString() + "Please wait, before sending a report again.")
             return
         }
 
-        CoreAPI.reportManager.report(target.id, target.name!!, sender.uniqueId, sender.name, senderProfile.currentServer!!, reason)
+        Shared.reportManager.report(target.id, target.name!!, sender.uniqueId, sender.name, senderProfile.currentServer!!, reason)
         senderProfile.reportCooldown = (System.currentTimeMillis() + 300 * 1000L)
-        CoreAPI.profileManager.repository.update(senderProfile)
+        Shared.profileManager.repository.update(senderProfile)
 
         sender.sendMessage(ChatColor.GREEN.toString() + "We have received your report.")
     }

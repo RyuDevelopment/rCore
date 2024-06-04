@@ -1,7 +1,6 @@
 package dev.ryu.core.bukkit.listener.orbit
 
 import com.google.gson.JsonObject
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Code
 import dev.t4yrn.jupiter.orbit.Orbit
 import dev.t4yrn.jupiter.orbit.OrbitListener
@@ -20,7 +19,7 @@ class CodeOrbitListener : OrbitListener {
     fun onRedeem(data: JsonObject) {
 
         val code = data["code"].asString
-        val rank = dev.ryu.core.shared.CoreAPI.rankManager.findById(data["rank"].asString)!!
+        val rank = dev.ryu.core.shared.Shared.rankManager.findById(data["rank"].asString)!!
         val redeemer = data["redeemer"].asString
 
         Bukkit.getOnlinePlayers().forEach { toReturn ->

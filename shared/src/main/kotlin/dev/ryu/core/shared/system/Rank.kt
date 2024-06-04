@@ -2,6 +2,7 @@ package dev.ryu.core.shared.system
 
 import com.google.gson.annotations.SerializedName
 import com.starlight.nexus.util.time.TimeUtil
+import dev.ryu.core.shared.Shared
 import java.util.*
 
 /*
@@ -11,7 +12,7 @@ import java.util.*
 */
 
 class Rank(
-    @SerializedName("_id") val id: String,
+    @SerializedName("_id") val id: String
 ) {
 
     var display: String = id
@@ -34,6 +35,10 @@ class Rank(
 
     var inherits: MutableList<String> = mutableListOf()
     var permissions: MutableList<String> = mutableListOf()
+
+    fun save() {
+        Shared.rankManager.repository.update(this)
+    }
 
     fun isPurchasable() : Boolean {
         return this.price != 0

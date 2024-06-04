@@ -2,7 +2,6 @@ package dev.ryu.core.bukkit.prompt.rank
 
 import dev.ryu.core.bukkit.menu.rank.RankEditor
 import dev.ryu.core.bukkit.menu.rank.editor.RankMetadata
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Rank
 import org.bukkit.ChatColor
 import org.bukkit.conversations.ConversationContext
@@ -50,17 +49,17 @@ class RankModifyPrompt(val rank: Rank, val menu: String, val toEdit: String, val
                 }
 
                 field.set(rank, permissionsList)
-                dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
             } else if (field.name == "price") {
                 val priceValue = input.toIntOrNull() ?: -1
                 field.set(rank, priceValue)
-                dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
             } else if (field.name == "prefix") {
                 rank.prefix = input
-                dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
             } else {
                 field.set(rank, input)
-                dev.ryu.core.shared.CoreAPI.rankManager.repository.update(rank)
+                dev.ryu.core.shared.Shared.rankManager.repository.update(rank)
             }
 
             if (this.menu == "metadata") {

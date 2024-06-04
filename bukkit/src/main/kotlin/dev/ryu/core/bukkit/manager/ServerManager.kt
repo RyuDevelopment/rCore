@@ -1,9 +1,7 @@
 package dev.ryu.core.bukkit.manager
 
 import com.google.gson.JsonObject
-import dev.ryu.core.bukkit.Core
 import dev.ryu.core.bukkit.listener.orbit.ServerOrbitListener
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Group
 import dev.ryu.core.shared.system.Server
 import dev.ryu.core.shared.system.extra.IManager
@@ -37,7 +35,7 @@ object ServerManager : IManager {
 
     override fun onEnable() {
         server = Server(serverID, dev.ryu.core.bukkit.Core.get().server.port, serverGroup)
-        dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().addListener(ServerOrbitListener())
+        dev.ryu.core.shared.Shared.backendManager.getJupiter().addListener(ServerOrbitListener())
 
         if (NetworkModule.findGroupById(serverGroup) == null) {
             NetworkModule.update(Group(serverGroup))
@@ -118,7 +116,7 @@ object ServerManager : IManager {
         payload.addProperty("message",message.toJSONString())
 
         val runnable = Runnable{
-            dev.ryu.core.shared.CoreAPI.backendManager.getJupiter().sendPacket(Jupiter(MESSAGE_ID,payload))
+            dev.ryu.core.shared.Shared.backendManager.getJupiter().sendPacket(Jupiter(MESSAGE_ID,payload))
         }
 
         if (async) {

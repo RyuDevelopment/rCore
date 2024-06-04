@@ -4,9 +4,8 @@ import com.starlight.nexus.menu.PaginatedMenu
 import com.starlight.nexus.menu.button.Button
 import com.starlight.nexus.menu.button.impl.GlassButton
 import com.starlight.nexus.menu.button.impl.MenuButton
-import dev.ryu.core.bukkit.menu.rank.RankCommand
 import dev.ryu.core.bukkit.util.protocol
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -20,11 +19,11 @@ class FriendsRequestMenu : PaginatedMenu() {
 
     override fun getAllPagesButtons(p0: Player): MutableMap<Int, Button> {
         return mutableMapOf<Int, Button>().also { toReturn ->
-            val profile = CoreAPI.profileManager.findById(p0.uniqueId)!!
+            val profile = Shared.profileManager.findById(p0.uniqueId)!!
 
             var index = 0
             profile.requests.forEach {request ->
-                val requestProfile = CoreAPI.profileManager.findById(request)!!
+                val requestProfile = Shared.profileManager.findById(request)!!
 
                 if (p0.protocol <= 20) {
                     toReturn[index] = MenuButton()

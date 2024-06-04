@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.ReplaceOptions
 import com.starlight.nexus.util.LongDeserializer
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Report
 import dev.ryu.core.shared.system.extra.IRepository
 import org.bson.Document
@@ -30,34 +30,34 @@ class ReportRepository : IRepository<UUID, Report> {
     }
 
     override fun update(value: Report): Boolean {
-        val document = Document.parse(CoreAPI.getGson().toJson(value))
+        val document = Document.parse(Shared.getGson().toJson(value))
         val idFilter = Filters.eq("_id", value.id.toString())
 
-        return CoreAPI.backendManager.getCollection("reports").replaceOne(idFilter, document, ReplaceOptions().upsert(true)).wasAcknowledged()
+        return Shared.backendManager.getCollection("reports").replaceOne(idFilter, document, ReplaceOptions().upsert(true)).wasAcknowledged()
     }
 
     override fun delete(value: Report): Boolean {
-        return CoreAPI.backendManager.getCollection("reports").deleteOne(Filters.eq("_id", value.id.toString())).wasAcknowledged()
+        return Shared.backendManager.getCollection("reports").deleteOne(Filters.eq("_id", value.id.toString())).wasAcknowledged()
     }
 
     override fun findById(id: UUID): Report? {
 
-        val document = CoreAPI.backendManager.getCollection("reports").find(Filters.eq("_id",id.toString())).first() ?: return null
+        val document = Shared.backendManager.getCollection("reports").find(Filters.eq("_id",id.toString())).first() ?: return null
 
-        return CoreAPI.getGson().fromJson(document.toJson(),Report::class.java)
+        return Shared.getGson().fromJson(document.toJson(),Report::class.java)
     }
 
     fun findMostRecentById(id: UUID): Report? {
-        val document = CoreAPI.backendManager.getCollection("reports").find(Filters.eq("targetId",id.toString())).sort(Filters.eq("reportedAt",-1)).limit(1).first() ?: return null
+        val document = Shared.backendManager.getCollection("reports").find(Filters.eq("targetId",id.toString())).sort(Filters.eq("reportedAt",-1)).limit(1).first() ?: return null
 
-        return CoreAPI.getGson().fromJson(document.toJson(), Report::class.java)
+        return Shared.getGson().fromJson(document.toJson(), Report::class.java)
     }
 
     fun findAllReportsById(id: UUID): MutableSet<Report> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
 
         val filter = Filters.eq("targetId", id.toString())
-        val cursor = CoreAPI.backendManager.getCollection("reports").find(filter)
+        val cursor = Shared.backendManager.getCollection("reports").find(filter)
 
         val reportSet = mutableSetOf<Report>()
         cursor.forEach {
@@ -72,7 +72,7 @@ class ReportRepository : IRepository<UUID, Report> {
     fun findAllReports(): MutableSet<Report> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
 
-        val cursor = CoreAPI.backendManager.getCollection("reports").find()
+        val cursor = Shared.backendManager.getCollection("reports").find()
 
         val reportSet = mutableSetOf<Report>()
         cursor.forEach {

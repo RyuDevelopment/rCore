@@ -3,7 +3,6 @@ package dev.ryu.core.shared.system.repository
 import com.google.gson.GsonBuilder
 import com.mongodb.client.model.Filters
 import com.mongodb.client.model.UpdateOptions
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Code
 import dev.ryu.core.shared.system.Rank
 import dev.ryu.core.shared.system.extra.IRepository
@@ -31,32 +30,32 @@ class CodeRepository : IRepository<UUID, Code> {
     }
 
     override fun update(value: Code): Boolean {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("codes").updateOne(Filters.eq("_id", value.id.toString()),Document("\$set",Document.parse(
-            dev.ryu.core.shared.CoreAPI.getGson().toJson(value))), UpdateOptions().upsert(true)).wasAcknowledged()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("codes").updateOne(Filters.eq("_id", value.id.toString()),Document("\$set",Document.parse(
+            dev.ryu.core.shared.Shared.getGson().toJson(value))), UpdateOptions().upsert(true)).wasAcknowledged()
     }
 
     override fun delete(value: Code): Boolean {
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("codes").deleteOne(Filters.eq("_id", value.id.toString())).wasAcknowledged()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("codes").deleteOne(Filters.eq("_id", value.id.toString())).wasAcknowledged()
     }
 
     override fun findById(id: UUID): Code? {
 
-        val document = dev.ryu.core.shared.CoreAPI.backendManager.getCollection("codes").find(Filters.eq("_id",id.toString())).first() ?: return null
+        val document = dev.ryu.core.shared.Shared.backendManager.getCollection("codes").find(Filters.eq("_id",id.toString())).first() ?: return null
 
-        return dev.ryu.core.shared.CoreAPI.getGson().fromJson(document.toJson(), Code::class.java)
+        return dev.ryu.core.shared.Shared.getGson().fromJson(document.toJson(), Code::class.java)
     }
 
     fun findByCode(id: String): Code? {
 
-        val document = dev.ryu.core.shared.CoreAPI.backendManager.getCollection("codes").find(Filters.eq("code",id)).first() ?: return null
+        val document = dev.ryu.core.shared.Shared.backendManager.getCollection("codes").find(Filters.eq("code",id)).first() ?: return null
 
-        return dev.ryu.core.shared.CoreAPI.getGson().fromJson(document.toJson(), Code::class.java)
+        return dev.ryu.core.shared.Shared.getGson().fromJson(document.toJson(), Code::class.java)
     }
 
     fun findAllCodes(): MutableSet<Code> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
 
-        val cursor = dev.ryu.core.shared.CoreAPI.backendManager.getCollection("codes").find()
+        val cursor = dev.ryu.core.shared.Shared.backendManager.getCollection("codes").find()
 
         val codeSet = mutableSetOf<Code>()
         cursor.forEach {
@@ -70,12 +69,12 @@ class CodeRepository : IRepository<UUID, Code> {
     fun findAllByRank(rank: Rank): MutableSet<Code> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
 
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("codes").find(Filters.eq("rank", rank.id)).map { gson.fromJson(it.toJson(), Code::class.java) }.toMutableSet()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("codes").find(Filters.eq("rank", rank.id)).map { gson.fromJson(it.toJson(), Code::class.java) }.toMutableSet()
     }
 
     fun findAllBySender(uuid: UUID):MutableSet<Code> {
         val gson = GsonBuilder().registerTypeAdapter(Long::class.java, LongDeserializer).create()
-        return dev.ryu.core.shared.CoreAPI.backendManager.getCollection("codes").find(Filters.eq("createdBy",uuid.toString())).map{ dev.ryu.core.shared.CoreAPI.getGson().fromJson(it.toJson(), Code::class.java)}.toMutableSet()
+        return dev.ryu.core.shared.Shared.backendManager.getCollection("codes").find(Filters.eq("createdBy",uuid.toString())).map{ dev.ryu.core.shared.Shared.getGson().fromJson(it.toJson(), Code::class.java)}.toMutableSet()
     }
 
 }

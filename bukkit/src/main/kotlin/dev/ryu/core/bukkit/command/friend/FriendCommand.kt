@@ -4,7 +4,7 @@ import com.starlight.nexus.command.Command
 import com.starlight.nexus.command.data.parameter.Param
 import dev.ryu.core.bukkit.menu.friend.FriendsMenu
 import dev.ryu.core.bukkit.system.lang.Lang
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.Profile
 import mkremins.fanciful.FancyMessage
 import org.bukkit.Bukkit
@@ -51,7 +51,7 @@ object FriendCommand {
                     message.send(Bukkit.getPlayer(target.id))
                 }
 
-                CoreAPI.profileManager.repository.update(target)
+                Shared.profileManager.repository.update(target)
             } else {
                 sender.sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${target.name} ${ChatColor.RED}already has a pending friend request from you.")
             }
@@ -66,7 +66,7 @@ object FriendCommand {
         sender: Player,
         @Param(name = "player") target: Profile
     ) {
-        val profile = CoreAPI.profileManager.findById(sender.uniqueId)!!
+        val profile = Shared.profileManager.findById(sender.uniqueId)!!
 
         if (profile.friends.contains(target.id)) {
             profile.friends.remove(target.id)
@@ -77,8 +77,8 @@ object FriendCommand {
                 Bukkit.getPlayer(target.id).sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${sender.name} ${ChatColor.RED}has removed you from their friends list.")
             }
 
-            CoreAPI.profileManager.repository.update(profile)
-            CoreAPI.profileManager.repository.update(target)
+            Shared.profileManager.repository.update(profile)
+            Shared.profileManager.repository.update(target)
         } else {
             sender.sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${target.name}${ChatColor.YELLOW} is not in your friends list.");
         }
@@ -90,16 +90,16 @@ object FriendCommand {
         sender: Player,
         @Param(name = "player") target: Profile
     ) {
-        val profile = CoreAPI.profileManager.findById(sender.uniqueId)!!
+        val profile = Shared.profileManager.findById(sender.uniqueId)!!
 
         if (profile.requests.contains(target.id)) {
             profile.friends.add(target.id)
             profile.requests.remove(target.id)
-            CoreAPI.profileManager.repository.update(profile)
+            Shared.profileManager.repository.update(profile)
 
             target.friends.add(sender.uniqueId)
             target.requests.remove(sender.uniqueId)
-            CoreAPI.profileManager.repository.update(target)
+            Shared.profileManager.repository.update(target)
 
             sender.sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.GREEN}You have accepted the friend request from ${ChatColor.AQUA}${target.name}${ChatColor.GREEN}.")
 
@@ -117,7 +117,7 @@ object FriendCommand {
         sender: Player,
         @Param(name = "player") target: Profile
     ) {
-        val profile = CoreAPI.profileManager.findById(sender.uniqueId)!!
+        val profile = Shared.profileManager.findById(sender.uniqueId)!!
 
         if (profile.requests.contains(target.id)) {
             target.requests.remove(sender.uniqueId)
@@ -128,7 +128,7 @@ object FriendCommand {
                 Bukkit.getPlayer(target.id).sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${sender.name} ${ChatColor.RED}has denied your friend request.")
             }
 
-            CoreAPI.profileManager.repository.update(target)
+            Shared.profileManager.repository.update(target)
         } else {
             sender.sendMessage("${Lang.FRIEND_PREFIX.value}${ChatColor.AQUA}${target.name}${ChatColor.YELLOW} is not in your friend requests list.")
         }

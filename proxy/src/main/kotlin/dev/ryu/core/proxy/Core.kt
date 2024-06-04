@@ -4,7 +4,7 @@ import dev.ryu.core.proxy.api.APIListener
 import dev.ryu.core.proxy.grant.GrantProxyAdapter
 import dev.ryu.core.proxy.permission.PermissionHandler
 import dev.ryu.core.proxy.proxy.ProxyHandler
-import dev.ryu.core.shared.CoreAPI
+import dev.ryu.core.shared.Shared
 import dev.ryu.core.shared.system.module.GrantModule
 import net.md_5.bungee.api.plugin.Plugin
 import net.md_5.bungee.config.Configuration
@@ -34,7 +34,7 @@ class Core : Plugin() {
 
         this.config = ConfigurationProvider.getProvider(YamlConfiguration::class.java).load(File(this.dataFolder,"config.yml"))
 
-        CoreAPI.onEnable()
+        Shared.onEnable()
 
         this.proxyHandler = ProxyHandler(this)
         this.permissionHandler = PermissionHandler(this)

@@ -79,7 +79,7 @@ class RankCommand : PaginatedMenu() {
 
                     override fun clicked(player: Player, slot: Int, clickType: ClickType) {
                         if (clickType.isRightClick) {
-                            if (currentRank.id == dev.ryu.core.shared.CoreAPI.rankManager.defaultRank.id) {
+                            if (currentRank.id == dev.ryu.core.shared.Shared.rankManager.defaultRank.id) {
                                 player.sendMessage("${ChatColor.RED}Rank '${currentRank.id}' is not deletable.")
                                 playFail(player)
                                 return
@@ -91,8 +91,8 @@ class RankCommand : PaginatedMenu() {
                                     override fun callback(callback: Boolean) {
                                         if (callback) {
                                             player.sendMessage("${ChatColor.GREEN}Rank '${Color.color(currentRank.display)}${ChatColor.GREEN}' is now successfully deleted.")
-                                            dev.ryu.core.shared.CoreAPI.rankManager.repository.delete(currentRank)
-                                            dev.ryu.core.shared.CoreAPI.rankManager.cache.remove(currentRank.id)
+                                            dev.ryu.core.shared.Shared.rankManager.repository.delete(currentRank)
+                                            dev.ryu.core.shared.Shared.rankManager.cache.remove(currentRank.id)
                                             player.closeInventory()
                                             RankCommand().openMenu(player)
                                         } else {
@@ -170,7 +170,7 @@ class RankCommand : PaginatedMenu() {
     }
 
     private fun getAllowedRanks(): List<Rank> {
-        val rankRepository = dev.ryu.core.shared.CoreAPI.rankManager.repository.findAllRanks()
+        val rankRepository = dev.ryu.core.shared.Shared.rankManager.repository.findAllRanks()
         val ranks: MutableList<Rank> = Lists.newArrayList()
         ranks.addAll(rankRepository)
         ranks.sortWith { o1, o2 -> o2.weight - o1.weight }

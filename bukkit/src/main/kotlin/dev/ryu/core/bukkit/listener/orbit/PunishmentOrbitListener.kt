@@ -1,8 +1,6 @@
 package dev.ryu.core.bukkit.listener.orbit
 
 import com.google.gson.JsonObject
-import dev.ryu.core.bukkit.Core
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Punishment
 import dev.ryu.core.shared.system.module.ProfileModule
 import dev.ryu.core.shared.system.module.PunishmentModule
@@ -24,7 +22,7 @@ class PunishmentOrbitListener() : OrbitListener {
     @Orbit(Punishment.PACKET_ID)
     fun onPunishment(data: JsonObject) {
 
-        val punishment = dev.ryu.core.shared.CoreAPI.getGson().fromJson(data, Punishment::class.java)
+        val punishment = dev.ryu.core.shared.Shared.getGson().fromJson(data, Punishment::class.java)
 
         val pardoned = punishment.isPardoned()
 

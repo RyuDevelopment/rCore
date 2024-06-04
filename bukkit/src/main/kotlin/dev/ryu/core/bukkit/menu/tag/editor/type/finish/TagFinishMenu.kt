@@ -1,7 +1,6 @@
 package dev.ryu.core.bukkit.menu.tag.editor.type.finish
 
 import dev.ryu.core.bukkit.menu.tag.AdminTagMenu
-import dev.ryu.core.shared.CoreAPI
 import dev.ryu.core.shared.system.Tag
 import dev.ryu.core.shared.system.extra.tag.TagType
 import com.starlight.nexus.menu.Menu
@@ -58,7 +57,7 @@ class TagFinishMenu(
                     tag.priority = 0
 
                     tag.save(true)
-                    dev.ryu.core.shared.CoreAPI.tagManager.tags[tag.name] = tag
+                    dev.ryu.core.shared.Shared.tagManager.tags[tag.name] = tag
 
                     AdminTagMenu().openMenu(player)
 
@@ -82,7 +81,7 @@ class TagFinishMenu(
                     tag.priority = 0
 
                     tag.save(true)
-                    dev.ryu.core.shared.CoreAPI.tagManager.tags[tag.name] = tag
+                    dev.ryu.core.shared.Shared.tagManager.tags[tag.name] = tag
 
                     AdminTagMenu().openMenu(player)
 
@@ -106,7 +105,7 @@ class TagFinishMenu(
                     tag.priority = 0
 
                     tag.save(true)
-                    dev.ryu.core.shared.CoreAPI.tagManager.tags[tag.name] = tag
+                    dev.ryu.core.shared.Shared.tagManager.tags[tag.name] = tag
 
                     AdminTagMenu().openMenu(player)
 

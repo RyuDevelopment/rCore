@@ -1,7 +1,6 @@
 package dev.ryu.core.shared.system
 
 import com.google.gson.annotations.SerializedName
-import dev.ryu.core.shared.CoreAPI
 import com.starlight.nexus.util.time.TimeUtil
 import java.sql.Date
 import java.util.*
@@ -26,7 +25,7 @@ class Code(
     var redeemed: Boolean = false
 
     fun getRank(): Rank? {
-        return dev.ryu.core.shared.CoreAPI.rankManager.findById(this.rank)
+        return dev.ryu.core.shared.Shared.rankManager.findById(this.rank)
     }
 
     fun getRankDuration() : String {
